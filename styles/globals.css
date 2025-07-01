@@ -1,0 +1,6 @@
+/* globals.css */
+@layer utilities {
+  .animation-delay-\[6s\] {
+    animation-delay: 6s;
+  }
+}
