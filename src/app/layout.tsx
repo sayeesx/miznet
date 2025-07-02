@@ -1,21 +1,24 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+import './globals.css'
+import { Manrope } from 'next/font/google'
+
+const manrope = Manrope({ subsets: ['latin'], display: 'swap' })
 
 export const metadata = {
   title: 'Miznet',
   description: 'AI-Powered Web3 Project Showcase',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+import React, { ReactNode } from 'react';
+
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={manrope.className}>{children}</body>
     </html>
-  )
+  );
 }

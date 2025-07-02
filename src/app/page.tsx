@@ -1,25 +1,248 @@
+"use client"
+
+import React from "react"
+import ChatbotButton from "../components/ChatbotButton"
+import ChatWindow from "../components/ChatWindow"
+import ContactButton from "../components/ContactButton"
+
 export default function Home() {
+  const [chatOpen, setChatOpen] = React.useState(false)
+
   return (
-    <main className="relative h-screen w-full overflow-hidden bg-[#0a0f0a] text-white font-sans">
-      {/* Animated Glow Blobs */}
-      <div className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full bg-green-400 opacity-30 blur-[160px] mix-blend-screen pointer-events-none animate-blob" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-lime-400 opacity-20 blur-[160px] mix-blend-screen pointer-events-none animate-blob animation-delay-[6s]" />
+    <div className="bg-white min-h-screen flex flex-col font-[Manrope,sans-serif] text-[#111827]">
+      {/* Header */}
+      <header className="fixed top-0 left-0 w-full bg-white/80 backdrop-blur z-30 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+          <div className="flex items-center gap-2">
+            <span className="text-2xl font-extrabold text-[#ff7300] tracking-tight">Miznet AI</span>
+          </div>
+          <nav className="hidden md:flex items-center gap-8 text-gray-700 font-semibold">
+            <a href="#features" className="hover:text-[#ff7300] transition font-bold">
+              Features
+            </a>
+            <a href="#how" className="hover:text-[#ff7300] transition font-bold">
+              How It Works
+            </a>
+            <a href="#pricing" className="hover:text-[#ff7300] transition font-bold">
+              Pricing
+            </a>
+            <a href="#about" className="hover:text-[#ff7300] transition font-bold">
+              About
+            </a>
+            <a href="#login" className="hover:text-[#ff7300] transition font-bold">
+              Log In
+            </a>
+            <a
+              href="#contact"
+              className="ml-4 px-6 py-2 rounded-full bg-[#ff7300] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none"
+            >
+              Contact Us
+            </a>
+          </nav>
+          {/* Mobile nav */}
+          <div className="md:hidden flex items-center">
+            <button className="p-2 rounded-full bg-white shadow-md hover:bg-amber-50 transition flex items-center justify-center">
+              <svg width="28" height="28" fill="none" stroke="#F59E0B" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
 
-      {/* Grain Overlay */}
-      <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08] mix-blend-soft-light bg-[url('data:image/svg+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2NgYGD4DwABBAEAeHnFYgAAAABJRU5ErkJggg==')] bg-repeat" />
-
-      {/* Content */}
-      <section className="relative z-20 flex flex-col items-center justify-center h-full text-center px-4">
-        <h1 className="text-6xl md:text-7xl font-extrabold bg-gradient-to-br from-green-300 via-lime-400 to-green-600 text-transparent bg-clip-text drop-shadow-lg">
-          Miznet
-        </h1>
-        <p className="mt-4 text-lg md:text-xl text-zinc-300 max-w-xl font-medium">
-          AI-Powered Web3 Project Showcase. Identity, Verification & Blockchain Innovation.
-        </p>
-        <button className="mt-8 px-6 py-3 rounded-full bg-green-600/90 hover:bg-green-500 transition font-semibold backdrop-blur-md shadow-xl text-white">
-          View Projects
-        </button>
+      {/* Hero Section */}
+      <section className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto pt-32 pb-16 px-6 gap-12 w-full">
+        {/* Left */}
+        <div className="flex-1 flex flex-col items-start justify-center">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-[#111827] mb-6 leading-tight max-w-2xl drop-shadow-lg">
+            Track Every Product from Warehouse to Checkout —{" "}
+            <span className="text-[#ff7300] font-extrabold">Automatically</span>
+          </h1>
+          <p className="text-lg text-gray-500 max-w-xl mb-8 font-medium">
+            <span className="font-bold text-[#ff7300]">Miznet AI</span> uses blockchain and machine learning to
+            eliminate stockouts, manage expiry, and restock shelves without human intervention.
+          </p>
+          <ContactButton className="mt-2" />
+        </div>
+        {/* Right */}
+        <div className="flex-1 flex items-center justify-center">
+          <div className="bg-gray-100 rounded-xl p-4 flex items-center justify-center w-full max-w-[500px] aspect-[4/3]">
+            <span className="text-7xl md:text-8xl text-[#ff7300]">📦</span>
+          </div>
+        </div>
       </section>
-    </main>
-  );
+
+      {/* Features Section */}
+      <section id="features" className="bg-white py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-12 text-center drop-shadow">Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <div className="flex flex-col items-center bg-white rounded-xl p-10">
+              <div className="bg-[#ff7300] text-white p-5 rounded-full mb-4 text-4xl">
+                <span>🔗</span>
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-[#111827]">Immutable Tracking</h3>
+              <p className="text-gray-500 text-center font-medium">
+                Blockchain logs every product from supplier to customer.
+              </p>
+            </div>
+            {/* Feature 2 */}
+            <div className="flex flex-col items-center bg-white rounded-xl p-10">
+              <div className="bg-[#ff7300] text-white p-5 rounded-full mb-4 text-4xl">
+                <span>🤖</span>
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-[#111827]">AI-Based Restocking</h3>
+              <p className="text-gray-500 text-center font-medium">
+                Forecasts demand and triggers automated stock movement.
+              </p>
+            </div>
+            {/* Feature 3 */}
+            <div className="flex flex-col items-center bg-white rounded-xl p-10">
+              <div className="bg-[#ff7300] text-white p-5 rounded-full mb-4 text-4xl">
+                <span>🚫</span>
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-[#111827]">No Manual Workers Needed</h3>
+              <p className="text-gray-500 text-center font-medium">Eliminates human inventory updates.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section id="how" className="bg-[#F9FAFB] py-20 px-6">
+        <div className="max-w-7xl mx-auto flex flex-col gap-16">
+          {/* Step 1 */}
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="flex-1 flex items-center justify-center">
+              <div className="bg-white rounded-xl p-6 w-full max-w-[400px] aspect-[4/3] flex items-center justify-center">
+                <span className="text-5xl text-[#ff7300]">🧾</span>
+              </div>
+            </div>
+            <div className="flex-1">
+              <h3 className="text-2xl font-extrabold text-[#111827] mb-2">Smart Billing with Blockchain</h3>
+              <p className="text-gray-500 mb-2 font-medium">
+                Product sale logs trigger <span className="font-bold text-[#ff7300]">AI restocking</span> if expiry or
+                low stock is detected.
+              </p>
+            </div>
+          </div>
+          {/* Step 2 */}
+          <div className="flex flex-col md:flex-row-reverse items-center gap-12">
+            <div className="flex-1 flex items-center justify-center">
+              <div className="bg-white rounded-xl p-6 w-full max-w-[400px] aspect-[4/3] flex items-center justify-center">
+                <span className="text-5xl text-[#ff7300]">🏭</span>
+              </div>
+            </div>
+            <div className="flex-1">
+              <h3 className="text-2xl font-extrabold text-[#111827] mb-2">Warehouse to Shelf Automation</h3>
+              <p className="text-gray-500 mb-2 font-medium">
+                Predictive AI sends restock commands directly to{" "}
+                <span className="font-bold text-[#ff7300]">warehouse bots</span>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="bg-white py-20 px-6">
+        <div className="max-w-3xl mx-auto flex flex-col items-center text-center">
+          <div className="rounded-full border-4 border-[#ff7300] w-48 h-48 flex items-center justify-center mb-8 bg-gray-50">
+            <span className="text-7xl text-[#ff7300]">🤝</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-2 drop-shadow">Miznet AI</h2>
+          <h3 className="text-lg text-[#ff7300] font-bold mb-4">AI + Blockchain = Autonomous Retail Supply Chain</h3>
+          <p className="text-gray-500 max-w-xl font-medium">
+            We're redefining how supermarkets operate using{" "}
+            <span className="font-bold text-[#ff7300]">secure, intelligent automation</span>.
+          </p>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="bg-[#F9FAFB] py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-12 text-center drop-shadow">Pricing</h2>
+          <div className="flex flex-col md:flex-row gap-8 justify-center">
+            {/* Starter */}
+            <div className="flex-1 bg-white rounded-xl p-10 flex flex-col items-center max-w-sm mx-auto">
+              <h3 className="text-xl font-bold mb-2 text-[#111827]">Starter</h3>
+              <ul className="text-gray-500 mb-6 text-left list-disc list-inside font-medium">
+                <li>Up to 2 stores</li>
+                <li>Basic analytics</li>
+                <li>Email support</li>
+              </ul>
+              <div className="text-3xl font-extrabold text-[#ff7300] mb-4">
+                $49<span className="text-base font-normal text-gray-500">/mo</span>
+              </div>
+              <a
+                href="#"
+                className="px-8 py-3 rounded-full bg-[#ff7300] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg"
+              >
+                Start Now
+              </a>
+            </div>
+            {/* Pro */}
+            <div className="flex-1 bg-white rounded-xl p-10 flex flex-col items-center max-w-sm mx-auto">
+              <h3 className="text-xl font-bold mb-2 text-[#111827]">Pro</h3>
+              <ul className="text-gray-500 mb-6 text-left list-disc list-inside font-medium">
+                <li>Up to 10 stores</li>
+                <li>Advanced analytics</li>
+                <li>Priority support</li>
+              </ul>
+              <div className="text-3xl font-extrabold text-[#ff7300] mb-4">
+                $149<span className="text-base font-normal text-gray-500">/mo</span>
+              </div>
+              <a
+                href="#"
+                className="px-8 py-3 rounded-full bg-[#ff7300] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg"
+              >
+                Start Now
+              </a>
+            </div>
+            {/* Enterprise */}
+            <div className="flex-1 bg-white rounded-xl p-10 flex flex-col items-center max-w-sm mx-auto">
+              <h3 className="text-xl font-bold mb-2 text-[#111827]">Enterprise</h3>
+              <ul className="text-gray-500 mb-6 text-left list-disc list-inside font-medium">
+                <li>Unlimited stores</li>
+                <li>Custom integrations</li>
+                <li>Dedicated support</li>
+              </ul>
+              <div className="text-3xl font-extrabold text-[#ff7300] mb-4">Contact Us</div>
+              <a
+                href="#"
+                className="px-8 py-3 rounded-full bg-[#ff7300] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg"
+              >
+                Start Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-[#111827] text-[#F9FAFB] py-8 px-6 mt-auto">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="text-[#F9FAFB] font-bold">© 2025 Miznet AI</div>
+          <div className="flex gap-6 text-[#F9FAFB] text-sm">
+            <a href="#" className="hover:underline font-semibold">
+              Terms
+            </a>
+            <a href="#" className="hover:underline font-semibold">
+              Privacy
+            </a>
+            <a href="#" className="hover:underline font-semibold">
+              Contact
+            </a>
+          </div>
+        </div>
+      </footer>
+
+      {/* Chatbot Button - Now with higher z-index and better visibility */}
+      <ChatbotButton onClick={() => setChatOpen((v) => !v)} />
+
+      {chatOpen && <ChatWindow onClose={() => setChatOpen(false)} />}
+    </div>
+  )
 }
