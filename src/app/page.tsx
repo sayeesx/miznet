@@ -5,6 +5,7 @@ import ChatbotButton from "../components/ChatbotButton"
 import ChatWindow from "../components/ChatWindow"
 import ContactButton from "../components/ContactButton"
 import Image from "next/image"
+import abstract1 from '../../assets/abstract/abstract1.webp'
 
 export default function Home() {
   const [chatOpen, setChatOpen] = React.useState(false)
@@ -69,7 +70,7 @@ export default function Home() {
         <div className="flex-1 flex items-center justify-center">
           <div className="w-full max-w-[500px] aspect-[4/3] flex items-center justify-center">
             <Image
-              src={require('../../assets/abstract/abstract1.webp')}
+              src={abstract1}
               alt="Abstract Hero"
               width={640}
               height={640}
