@@ -156,19 +156,10 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 };
 
 export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
-  const [hovered, setHovered] = useState<number | null>(null);
   const [active, setActive] = useState<number | null>(null); // No item selected by default
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 640);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   return (
     <div
-      onMouseLeave={() => setHovered(null)}
+      onMouseLeave={() => {}}
       className={cn(
         "flex flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 min-w-0",
         className,
@@ -176,8 +167,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
     >
       {items.map((item, idx) => (
         <a
-          onMouseEnter={() => setHovered(idx)}
-          onClick={e => {
+          onClick={() => {
             setActive(idx);
             if (onItemClick) onItemClick();
           }}
@@ -259,8 +249,7 @@ export const MobileNavMenu = ({
   children,
   className,
   isOpen,
-  onClose,
-}: MobileNavMenuProps) => {
+}: Omit<MobileNavMenuProps, 'onClose'>) => {
   return (
     <AnimatePresence>
       {isOpen && (
