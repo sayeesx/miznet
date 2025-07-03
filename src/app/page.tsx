@@ -67,7 +67,7 @@ export default function Home() {
           <ContactButton className="mt-2 self-start ml-0" />
         </div>
         {/* Right */}
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex items-center justify-center hidden sm:flex">
           <div className="w-full max-w-[500px] aspect-[4/3] flex items-center justify-center">
             <Image
               src={abstract1}
