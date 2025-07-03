@@ -7,6 +7,10 @@ import ContactButton from "../components/ContactButton"
 import Image from "next/image"
 import abstract1 from '../../assets/abstract/abstract1.webp'
 import { NavbarDemo } from "../components/ui/resizable-navbar"
+import Lottie from "lottie-react"
+import immutableTrackingLottie from "../animations/immutabletracking.json"
+import robotLottie from "../animations/robot.json"
+import workerLottie from "../animations/worker.json"
 
 export default function Home() {
   const [chatOpen, setChatOpen] = React.useState(false)
@@ -49,30 +53,45 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-12 text-center drop-shadow">Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Feature 1 */}
+            {/* Feature 1 (AI-Based Restocking) */}
             <div className="flex flex-col items-center bg-white rounded-xl p-10">
-              <div className="bg-[#fc0404] text-white p-5 rounded-full mb-4 text-4xl">
-                <span>🔗</span>
-              </div>
-              <h3 className="text-xl font-bold mb-2 text-[#111827]">Immutable Tracking</h3>
-              <p className="text-gray-500 text-center font-medium">
-                Blockchain logs every product from supplier to customer.
-              </p>
-            </div>
-            {/* Feature 2 */}
-            <div className="flex flex-col items-center bg-white rounded-xl p-10">
-              <div className="bg-[#fc0404] text-white p-5 rounded-full mb-4 text-4xl">
-                <span>🤖</span>
+              <div className="bg-[#fc0404] text-white p-5 rounded-full mb-4 text-4xl flex items-center justify-center" style={{ width: 170, height: 170, background: '#fff' }}>
+                <Lottie
+                  animationData={robotLottie}
+                  loop
+                  autoplay
+                  style={{ width: 150, height: 150, background: "#fff" }}
+                />
               </div>
               <h3 className="text-xl font-bold mb-2 text-[#111827]">AI-Based Restocking</h3>
               <p className="text-gray-500 text-center font-medium">
                 Forecasts demand and triggers automated stock movement.
               </p>
             </div>
-            {/* Feature 3 */}
+            {/* Feature 2 (Immutable Tracking) */}
             <div className="flex flex-col items-center bg-white rounded-xl p-10">
-              <div className="bg-[#fc0404] text-white p-5 rounded-full mb-4 text-4xl">
-                <span>🚫</span>
+              <div className="bg-[#fc0404] text-white p-5 rounded-full mb-4 text-4xl flex items-center justify-center" style={{ width: 170, height: 170, background: '#fff' }}>
+                <Lottie
+                  animationData={immutableTrackingLottie}
+                  loop
+                  autoplay
+                  style={{ width: 110, height: 110, background: "#fff" }}
+                />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-[#111827]">Immutable Tracking</h3>
+              <p className="text-gray-500 text-center font-medium">
+                Blockchain logs every product from supplier to customer.
+              </p>
+            </div>
+            {/* Feature 3 (No Manual Workers Needed) */}
+            <div className="flex flex-col items-center bg-white rounded-xl p-10">
+              <div className="bg-[#fc0404] text-white p-5 rounded-full mb-4 text-4xl flex items-center justify-center" style={{ width: 170, height: 170, background: '#fff' }}>
+                <Lottie
+                  animationData={workerLottie}
+                  loop
+                  autoplay
+                  style={{ width: 150, height: 150, background: "#fff" }}
+                />
               </div>
               <h3 className="text-xl font-bold mb-2 text-[#111827]">No Manual Workers Needed</h3>
               <p className="text-gray-500 text-center font-medium">Eliminates human inventory updates.</p>
