@@ -4,6 +4,7 @@ import React from "react"
 import ChatbotButton from "../components/ChatbotButton"
 import ChatWindow from "../components/ChatWindow"
 import ContactButton from "../components/ContactButton"
+import Image from "next/image"
 
 export default function Home() {
   const [chatOpen, setChatOpen] = React.useState(false)
@@ -14,27 +15,27 @@ export default function Home() {
       <header className="fixed top-0 left-0 w-full bg-white/80 backdrop-blur z-30 border-b border-gray-100">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-extrabold text-[#ff7300] tracking-tight">Miznet AI</span>
+            <span className="text-2xl font-extrabold text-[#fc0404] tracking-tight">Miznet AI</span>
           </div>
           <nav className="hidden md:flex items-center gap-8 text-gray-700 font-semibold">
-            <a href="#features" className="hover:text-[#ff7300] transition font-bold">
+            <a href="#features" className="hover:text-[#fc0404] transition font-bold">
               Features
             </a>
-            <a href="#how" className="hover:text-[#ff7300] transition font-bold">
+            <a href="#how" className="hover:text-[#fc0404] transition font-bold">
               How It Works
             </a>
-            <a href="#pricing" className="hover:text-[#ff7300] transition font-bold">
+            <a href="#pricing" className="hover:text-[#fc0404] transition font-bold">
               Pricing
             </a>
-            <a href="#about" className="hover:text-[#ff7300] transition font-bold">
+            <a href="#about" className="hover:text-[#fc0404] transition font-bold">
               About
             </a>
-            <a href="#login" className="hover:text-[#ff7300] transition font-bold">
+            <a href="#login" className="hover:text-[#fc0404] transition font-bold">
               Log In
             </a>
             <a
               href="#contact"
-              className="ml-4 px-6 py-2 rounded-full bg-[#ff7300] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none"
+              className="ml-4 px-6 py-2 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none"
             >
               Contact Us
             </a>
@@ -51,23 +52,30 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto pt-32 pb-16 px-6 gap-12 w-full">
+      <section className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto pt-20 pb-16 px-6 gap-12 w-full">
         {/* Left */}
         <div className="flex-1 flex flex-col items-start justify-center">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-[#111827] mb-6 leading-tight max-w-2xl drop-shadow-lg">
             Track Every Product from Warehouse to Checkout —{" "}
-            <span className="text-[#ff7300] font-extrabold">Automatically</span>
+            <span className="text-[#fc0404] font-extrabold">Automatically</span>
           </h1>
           <p className="text-lg text-gray-500 max-w-xl mb-8 font-medium">
-            <span className="font-bold text-[#ff7300]">Miznet AI</span> uses blockchain and machine learning to
+            <span className="font-bold text-[#fc0404]">Miznet AI</span> uses blockchain and machine learning to
             eliminate stockouts, manage expiry, and restock shelves without human intervention.
           </p>
-          <ContactButton className="mt-2" />
+          <ContactButton className="mt-2 self-start ml-0" />
         </div>
         {/* Right */}
         <div className="flex-1 flex items-center justify-center">
-          <div className="bg-gray-100 rounded-xl p-4 flex items-center justify-center w-full max-w-[500px] aspect-[4/3]">
-            <span className="text-7xl md:text-8xl text-[#ff7300]">📦</span>
+          <div className="w-full max-w-[500px] aspect-[4/3] flex items-center justify-center">
+            <Image
+              src={require('../../assets/abstract/abstract1.webp')}
+              alt="Abstract Hero"
+              width={640}
+              height={640}
+              className="w-[32rem] h-[32rem] object-contain"
+              priority
+            />
           </div>
         </div>
       </section>
@@ -79,7 +87,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Feature 1 */}
             <div className="flex flex-col items-center bg-white rounded-xl p-10">
-              <div className="bg-[#ff7300] text-white p-5 rounded-full mb-4 text-4xl">
+              <div className="bg-[#fc0404] text-white p-5 rounded-full mb-4 text-4xl">
                 <span>🔗</span>
               </div>
               <h3 className="text-xl font-bold mb-2 text-[#111827]">Immutable Tracking</h3>
@@ -89,7 +97,7 @@ export default function Home() {
             </div>
             {/* Feature 2 */}
             <div className="flex flex-col items-center bg-white rounded-xl p-10">
-              <div className="bg-[#ff7300] text-white p-5 rounded-full mb-4 text-4xl">
+              <div className="bg-[#fc0404] text-white p-5 rounded-full mb-4 text-4xl">
                 <span>🤖</span>
               </div>
               <h3 className="text-xl font-bold mb-2 text-[#111827]">AI-Based Restocking</h3>
@@ -99,7 +107,7 @@ export default function Home() {
             </div>
             {/* Feature 3 */}
             <div className="flex flex-col items-center bg-white rounded-xl p-10">
-              <div className="bg-[#ff7300] text-white p-5 rounded-full mb-4 text-4xl">
+              <div className="bg-[#fc0404] text-white p-5 rounded-full mb-4 text-4xl">
                 <span>🚫</span>
               </div>
               <h3 className="text-xl font-bold mb-2 text-[#111827]">No Manual Workers Needed</h3>
@@ -116,13 +124,13 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="flex-1 flex items-center justify-center">
               <div className="bg-white rounded-xl p-6 w-full max-w-[400px] aspect-[4/3] flex items-center justify-center">
-                <span className="text-5xl text-[#ff7300]">🧾</span>
+                <span className="text-5xl text-[#fc0404]">🧾</span>
               </div>
             </div>
             <div className="flex-1">
               <h3 className="text-2xl font-extrabold text-[#111827] mb-2">Smart Billing with Blockchain</h3>
               <p className="text-gray-500 mb-2 font-medium">
-                Product sale logs trigger <span className="font-bold text-[#ff7300]">AI restocking</span> if expiry or
+                Product sale logs trigger <span className="font-bold text-[#fc0404]">AI restocking</span> if expiry or
                 low stock is detected.
               </p>
             </div>
@@ -131,14 +139,14 @@ export default function Home() {
           <div className="flex flex-col md:flex-row-reverse items-center gap-12">
             <div className="flex-1 flex items-center justify-center">
               <div className="bg-white rounded-xl p-6 w-full max-w-[400px] aspect-[4/3] flex items-center justify-center">
-                <span className="text-5xl text-[#ff7300]">🏭</span>
+                <span className="text-5xl text-[#fc0404]">🏭</span>
               </div>
             </div>
             <div className="flex-1">
               <h3 className="text-2xl font-extrabold text-[#111827] mb-2">Warehouse to Shelf Automation</h3>
               <p className="text-gray-500 mb-2 font-medium">
                 Predictive AI sends restock commands directly to{" "}
-                <span className="font-bold text-[#ff7300]">warehouse bots</span>.
+                <span className="font-bold text-[#fc0404]">warehouse bots</span>.
               </p>
             </div>
           </div>
@@ -148,14 +156,14 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="bg-white py-20 px-6">
         <div className="max-w-3xl mx-auto flex flex-col items-center text-center">
-          <div className="rounded-full border-4 border-[#ff7300] w-48 h-48 flex items-center justify-center mb-8 bg-gray-50">
-            <span className="text-7xl text-[#ff7300]">🤝</span>
+          <div className="rounded-full border-4 border-[#fc0404] w-48 h-48 flex items-center justify-center mb-8 bg-gray-50">
+            <span className="text-7xl text-[#fc0404]">🤝</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-2 drop-shadow">Miznet AI</h2>
-          <h3 className="text-lg text-[#ff7300] font-bold mb-4">AI + Blockchain = Autonomous Retail Supply Chain</h3>
+          <h3 className="text-lg text-[#fc0404] font-bold mb-4">AI + Blockchain = Autonomous Retail Supply Chain</h3>
           <p className="text-gray-500 max-w-xl font-medium">
-            We're redefining how supermarkets operate using{" "}
-            <span className="font-bold text-[#ff7300]">secure, intelligent automation</span>.
+            We&apos;re redefining how supermarkets operate using{" "}
+            <span className="font-bold text-[#fc0404]">secure, intelligent automation</span>.
           </p>
         </div>
       </section>
@@ -173,12 +181,12 @@ export default function Home() {
                 <li>Basic analytics</li>
                 <li>Email support</li>
               </ul>
-              <div className="text-3xl font-extrabold text-[#ff7300] mb-4">
+              <div className="text-3xl font-extrabold text-[#fc0404] mb-4">
                 $49<span className="text-base font-normal text-gray-500">/mo</span>
               </div>
               <a
                 href="#"
-                className="px-8 py-3 rounded-full bg-[#ff7300] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg"
+                className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg"
               >
                 Start Now
               </a>
@@ -191,12 +199,12 @@ export default function Home() {
                 <li>Advanced analytics</li>
                 <li>Priority support</li>
               </ul>
-              <div className="text-3xl font-extrabold text-[#ff7300] mb-4">
+              <div className="text-3xl font-extrabold text-[#fc0404] mb-4">
                 $149<span className="text-base font-normal text-gray-500">/mo</span>
               </div>
               <a
                 href="#"
-                className="px-8 py-3 rounded-full bg-[#ff7300] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg"
+                className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg"
               >
                 Start Now
               </a>
@@ -209,10 +217,10 @@ export default function Home() {
                 <li>Custom integrations</li>
                 <li>Dedicated support</li>
               </ul>
-              <div className="text-3xl font-extrabold text-[#ff7300] mb-4">Contact Us</div>
+              <div className="text-3xl font-extrabold text-[#fc0404] mb-4">Contact Us</div>
               <a
                 href="#"
-                className="px-8 py-3 rounded-full bg-[#ff7300] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg"
+                className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg"
               >
                 Start Now
               </a>
