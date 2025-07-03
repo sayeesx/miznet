@@ -6,51 +6,14 @@ import ChatWindow from "../components/ChatWindow"
 import ContactButton from "../components/ContactButton"
 import Image from "next/image"
 import abstract1 from '../../assets/abstract/abstract1.webp'
+import { NavbarDemo } from "../components/ui/resizable-navbar"
 
 export default function Home() {
   const [chatOpen, setChatOpen] = React.useState(false)
 
   return (
     <div className="bg-white min-h-screen flex flex-col font-[Manrope,sans-serif] text-[#111827]">
-      {/* Header */}
-      <header className="fixed top-0 left-0 w-full bg-white/80 backdrop-blur z-30 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl font-extrabold text-[#fc0404] tracking-tight">Miznet AI</span>
-          </div>
-          <nav className="hidden md:flex items-center gap-8 text-gray-700 font-semibold">
-            <a href="#features" className="hover:text-[#fc0404] transition font-bold">
-              Features
-            </a>
-            <a href="#how" className="hover:text-[#fc0404] transition font-bold">
-              How It Works
-            </a>
-            <a href="#pricing" className="hover:text-[#fc0404] transition font-bold">
-              Pricing
-            </a>
-            <a href="#about" className="hover:text-[#fc0404] transition font-bold">
-              About
-            </a>
-            <a href="#login" className="hover:text-[#fc0404] transition font-bold">
-              Log In
-            </a>
-            <a
-              href="#contact"
-              className="ml-4 px-6 py-2 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none"
-            >
-              Contact Us
-            </a>
-          </nav>
-          {/* Mobile nav */}
-          <div className="md:hidden flex items-center">
-            <button className="p-2 rounded-full bg-white shadow-md hover:bg-amber-50 transition flex items-center justify-center">
-              <svg width="28" height="28" fill="none" stroke="#F59E0B" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </header>
+      <NavbarDemo />
 
       {/* Hero Section */}
       <section className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto pt-20 pb-16 px-6 gap-12 w-full">
