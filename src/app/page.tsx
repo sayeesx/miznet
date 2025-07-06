@@ -100,6 +100,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* How Miznet Works Heading */}
+      <div className="w-full flex flex-col items-center justify-center bg-[#F9FAFB] pt-12">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-[#fc0404] mb-4 text-center drop-shadow">How Miznet Works?</h2>
+      </div>
+
       {/* How It Works Section */}
       <section id="how" className="bg-[#F9FAFB] py-20 px-6">
         <div className="max-w-7xl mx-auto flex flex-col gap-16">
@@ -133,6 +138,12 @@ export default function Home() {
               </p>
             </div>
           </div>
+        </div>
+        {/* Button to Works page */}
+        <div className="flex justify-center mt-12">
+          <a href="/miznet" className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg transition-all duration-300 shadow-md">
+            See How Miznet Works
+          </a>
         </div>
       </section>
 

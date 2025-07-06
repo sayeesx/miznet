@@ -7,6 +7,8 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "motion/react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 import React, { useRef, useState, useEffect } from "react";
 
@@ -156,7 +158,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 };
 
 export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
-  const [active, setActive] = useState<number | null>(null); // No item selected by default
+  const pathname = usePathname();
+
   return (
     <div
       onMouseLeave={() => {}}
@@ -165,36 +168,24 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
         className,
       )}
     >
-      {items.map((item, idx) => (
-        <a
-          onClick={() => {
-            setActive(idx);
-            if (onItemClick) onItemClick();
-          }}
-          className={cn(
-            "relative px-3 py-2 text-neutral-600 dark:text-neutral-300 flex flex-col items-center transition-colors duration-200",
-            { 'font-bold text-black !text-black': active === idx }
-          )}
-          key={`link-${idx}`}
-          href={item.link}
-        >
-          <span className="relative z-20">{item.name}</span>
-          {/* Underline animation for both mobile and desktop */}
-          {active === idx && (
-            <span className="block h-0.5 w-6 bg-[#fc0404] rounded-full mt-1 animate-underline" />
-          )}
-        </a>
-      ))}
-      <style jsx>{`
-        @keyframes underline {
-          0% { width: 0; opacity: 0.5; }
-          60% { width: 2.5rem; opacity: 1; }
-          100% { width: 1.5rem; opacity: 1; }
-        }
-        .animate-underline {
-          animation: underline 0.4s cubic-bezier(0.4,0,0.2,1);
-        }
-      `}</style>
+      {items.map((item, idx) => {
+        const isActive = pathname === item.link;
+        return (
+          <Link
+            onClick={() => {
+              if (onItemClick) onItemClick();
+            }}
+            className={cn(
+              "relative px-3 py-2 text-neutral-600 dark:text-neutral-300 flex flex-col items-center transition-colors duration-200",
+              isActive && 'font-bold !text-[#fc0404]',
+            )}
+            key={`link-${idx}`}
+            href={item.link}
+          >
+            <span className="relative z-20">{item.name}</span>
+          </Link>
+        );
+      })}
     </div>
   );
 };
@@ -284,13 +275,20 @@ export const MobileNavToggle = ({
 };
 
 export const NavbarLogo = () => {
+  const pathname = usePathname();
   return (
-    <a
-      href="#"
+    <Link
+      href="/"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal"
+      onClick={e => {
+        if (pathname === "/") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          e.preventDefault();
+        }
+      }}
     >
       <span className="font-extrabold text-base sm:text-lg md:text-xl text-black">Miznet AI</span>
-    </a>
+    </Link>
   );
 };
 
@@ -338,15 +336,15 @@ export function NavbarDemo() {
   const navItems = [
     {
       name: "Features",
-      link: "#features",
+      link: "/miznet",
     },
     {
       name: "Pricing",
-      link: "#pricing",
+      link: "/pricing",
     },
     {
       name: "Contact",
-      link: "#contact",
+      link: "/contact",
       hideOnMobile: true,
     },
   ];
