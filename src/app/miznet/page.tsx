@@ -121,8 +121,8 @@ export default function Page() {
   return (
     <>
       <NavbarDemo />
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-16 px-4">
-        <div className="max-w-5xl mx-auto">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-16 px-4 pt-32 md:pt-16">
+        <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-20">
             <div className="inline-block p-2 bg-[#fc0404]/10 rounded-full mb-6">
@@ -147,48 +147,110 @@ export default function Page() {
             </div>
 
             {/* Timeline items */}
-            <div className="space-y-16">
+            <div className="space-y-16 md:space-y-16">
               {steps.map((step, index) => (
                 <div key={step.id} className="relative">
-                  {/* Simple step label */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-2 z-10">
-                    <div className="bg-white px-4 py-1">
-                      <span className="text-sm font-bold text-gray-900">{step.date}</span>
+                  {/* Desktop Layout */}
+                  <div className="hidden md:flex items-center">
+                    {/* Round step label - centered */}
+                    <div className="absolute left-1/2 transform -translate-x-1/2 z-20">
+                      <div className="bg-white border-2 border-gray-300 rounded-full px-4 py-2">
+                        <span className="text-sm font-bold text-gray-900">{step.date}</span>
+                      </div>
                     </div>
+
+                    {/* Left side layout (even index) */}
+                    {index % 2 === 0 && (
+                      <>
+                        {/* Left card */}
+                        <div className="w-1/2 pr-24 flex justify-end">
+                          <div className="w-full max-w-xs">
+                            <div className="bg-white border-2 border-gray-200 rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
+                              <div className="flex items-start gap-4">
+                                <div className="flex-1">
+                                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#fc0404] transition-colors duration-300">
+                                    {step.title}
+                                  </h3>
+                                  <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
+                                </div>
+                                <div className="flex-shrink-0">
+                                  <div className="w-12 h-12 bg-gradient-to-br from-[#fc0404] to-[#e00404] rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:rotate-6">
+                                    {step.icon}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Connector line from center to left card */}
+                        <div className="absolute left-1/2 top-1/2 transform -translate-y-1/2 z-10">
+                          <div className="w-24 h-0.5 border-t-2 border-dashed border-gray-400 transform -translate-x-full"></div>
+                        </div>
+
+                        {/* Right empty space */}
+                        <div className="w-1/2"></div>
+                      </>
+                    )}
+
+                    {/* Right side layout (odd index) */}
+                    {index % 2 === 1 && (
+                      <>
+                        {/* Left empty space */}
+                        <div className="w-1/2"></div>
+
+                        {/* Connector line from center to right card */}
+                        <div className="absolute left-1/2 top-1/2 transform -translate-y-1/2 z-10">
+                          <div className="w-24 h-0.5 border-t-2 border-dashed border-gray-400"></div>
+                        </div>
+
+                        {/* Right card */}
+                        <div className="w-1/2 pl-24 flex justify-start">
+                          <div className="w-full max-w-xs">
+                            <div className="bg-white border-2 border-gray-200 rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
+                              <div className="flex items-start gap-4">
+                                <div className="flex-shrink-0">
+                                  <div className="w-12 h-12 bg-gradient-to-br from-[#fc0404] to-[#e00404] rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:rotate-6">
+                                    {step.icon}
+                                  </div>
+                                </div>
+                                <div className="flex-1">
+                                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#fc0404] transition-colors duration-300">
+                                    {step.title}
+                                  </h3>
+                                  <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
 
-                  {/* Timeline item */}
-                  <div
-                    className={`flex ${
-                      index % 2 === 0 ? "justify-center md:justify-start" : "justify-center md:justify-end"
-                    } mt-12`}
-                  >
-                    <div
-                      className={`w-full max-w-lg ${index % 2 === 0 ? "px-4 md:px-0 md:pr-12" : "px-4 md:px-0 md:pl-12"}`}
-                    >
-                      <div className="bg-white border-2 border-gray-200 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
-                        <div className="flex items-start gap-6">
+                  {/* Mobile layout - step label above card */}
+                  <div className="md:hidden flex flex-col items-center">
+                    {/* Step label positioned above card */}
+                    <div className="mb-6 z-20">
+                      <div className="bg-white border-2 border-gray-300 rounded-full px-4 py-2 shadow-md">
+                        <span className="text-sm font-bold text-gray-900">{step.date}</span>
+                      </div>
+                    </div>
+
+                    {/* Feature card below step label */}
+                    <div className="w-full max-w-sm">
+                      <div className="bg-white border-2 border-gray-200 rounded-3xl p-6 shadow-xl">
+                        <div className="flex items-start gap-4">
                           <div className="flex-1">
-                            <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#fc0404] transition-colors duration-300">
-                              {step.title}
-                            </h3>
-                            <p className="text-gray-600 text-base leading-relaxed">{step.description}</p>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
+                            <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
                           </div>
                           <div className="flex-shrink-0">
-                            <div className="w-16 h-16 bg-gradient-to-br from-[#fc0404] to-[#e00404] rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:rotate-6">
+                            <div className="w-12 h-12 bg-gradient-to-br from-[#fc0404] to-[#e00404] rounded-2xl flex items-center justify-center text-white shadow-lg">
                               {step.icon}
                             </div>
                           </div>
                         </div>
-                      </div>
-
-                      {/* Accurate dotted connector line to center */}
-                      <div
-                        className={`hidden md:block absolute top-1/2 ${
-                          index % 2 === 0 ? "right-0 translate-x-12" : "left-0 -translate-x-12"
-                        } w-12 h-0.5 transform -translate-y-1/2`}
-                      >
-                        <div className="w-full h-full border-t-2 border-dashed border-gray-400"></div>
                       </div>
                     </div>
                   </div>
@@ -222,7 +284,7 @@ export default function Page() {
                 </p>
 
                 {/* Success indicators */}
-                <div className="flex justify-center gap-4 mt-6">
+                <div className="flex justify-center gap-4 mt-6 flex-wrap">
                   <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     <span className="text-sm font-medium text-green-700">Optimized</span>
