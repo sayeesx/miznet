@@ -1,12 +1,11 @@
-import { NavbarDemo } from "../../components/ui/resizable-navbar";
+import PageContainer from "../../components/PageContainer";
 
 export default function ContactPage() {
   return (
-    <>
-      <NavbarDemo />
+    <PageContainer>
       <div className="min-h-screen flex items-center justify-center">
         <h1 className="text-4xl font-bold">Contact Page</h1>
       </div>
-    </>
+    </PageContainer>
   );
 } 
