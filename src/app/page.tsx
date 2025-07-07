@@ -11,6 +11,7 @@ import Lottie from "lottie-react"
 import immutableTrackingLottie from "../animations/immutabletracking.json"
 import robotLottie from "../animations/robot.json"
 import workerLottie from "../animations/worker.json"
+import BrandLogoCarousel from "../components/BrandLogoCarousel"
 
 export default function Home() {
   const [chatOpen, setChatOpen] = React.useState(false)
@@ -46,6 +47,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Brand Logo Carousel */}
+        <BrandLogoCarousel />
 
         {/* Features Section */}
         <section id="features" className="bg-white py-20 px-6">
