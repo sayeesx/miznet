@@ -1,4 +1,5 @@
 import React from "react"
+import Image from 'next/image';
 
 const logos = [
   { name: "Walmart", src: "/brandlogos/walmart.svg" },
@@ -30,11 +31,12 @@ const BrandLogoCarousel: React.FC = () => {
                 key={logo.name + idx}
                 className="flex-shrink-0 flex items-center justify-center h-16 w-24"
               >
-                <img
+                <Image
                   src={logo.src}
                   alt={logo.name}
                   className="h-10 w-20 object-contain filter grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition duration-300"
-                  loading="lazy"
+                  width={64}
+                  height={64}
                 />
               </div>
             ))}
@@ -47,11 +49,12 @@ const BrandLogoCarousel: React.FC = () => {
                 key={logo.name + idx}
                 className="flex-shrink-0 flex items-center justify-center h-10 w-20"
               >
-                <img
+                <Image
                   src={logo.src}
                   alt={logo.name}
                   className="h-5 w-16 object-contain filter grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition duration-300"
-                  loading="lazy"
+                  width={64}
+                  height={64}
                 />
               </div>
             ))}
