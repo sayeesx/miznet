@@ -14,7 +14,8 @@ const logos = [
 ]
 
 const BrandLogoCarousel: React.FC = () => {
-  const repeatedLogos = [...logos, ...logos, ...logos]
+  // Repeat logos enough times for seamless loop
+  const repeatedLogos = [...logos, ...logos, ...logos, ...logos]
 
   return (
     <div className="w-full bg-white py-6">
@@ -23,7 +24,7 @@ const BrandLogoCarousel: React.FC = () => {
           Designed to Scale With the World&apos;s Largest Retailers
         </h3>
 
-        <div className="relative w-full flex flex-col items-center justify-center">
+        <div className="relative w-full flex flex-col items-center justify-center overflow-x-hidden">
           {/* Desktop: Static row */}
           <div className="hidden sm:flex flex-wrap justify-center items-center gap-10 w-full">
             {logos.map((logo, idx) => (
@@ -43,7 +44,7 @@ const BrandLogoCarousel: React.FC = () => {
           </div>
 
           {/* Mobile: Animated infinite carousel */}
-          <div className="flex sm:hidden animate-carousel gap-10" style={{ width: 'max-content' }}>
+          <div className="flex sm:hidden animate-carousel gap-10 w-max" style={{ minWidth: '200vw' }}>
             {repeatedLogos.map((logo, idx) => (
               <div
                 key={logo.name + idx}
@@ -69,11 +70,17 @@ const BrandLogoCarousel: React.FC = () => {
       <style jsx>{`
         @keyframes carousel {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-33.333%); }
+          100% { transform: translateX(-50%); }
         }
         .animate-carousel {
-          animation: carousel 30s linear infinite;
+          animation: carousel 25s linear infinite;
           will-change: transform;
+        }
+        @media (max-width: 639px) {
+          .animate-carousel {
+            animation-duration: 32s !important;
+            animation-timing-function: linear !important;
+          }
         }
       `}</style>
     </div>
