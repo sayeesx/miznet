@@ -54,7 +54,7 @@ export default function ContactPage() {
           <div className="fixed top-0 left-0 w-full flex justify-center z-50 animate-fade-down-up">
             <div className="bg-white text-black px-4 py-2 font-medium text-sm shadow-none rounded-lg flex items-center gap-2">
               <span role="img" aria-label="confetti">🎉</span>
-              Your request has been sent, you'll get a reply from Miznet team shortly, thank you for reaching out.
+              Your request has been sent, you&apos;ll get a reply from Miznet team shortly, thank you for reaching out.
             </div>
           </div>
         )}
