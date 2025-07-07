@@ -42,3 +42,28 @@ html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
 }
+
+/* Fade-up-down animation for contact page alert */
+@keyframes fade-up-down {
+  0% { opacity: 0; transform: translateY(32px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(48px); }
+}
+.animate-fade-up-down {
+  animation: fade-up-down 4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Fade-down-up animation for contact page alert */
+@keyframes fade-down-up {
+  0% { opacity: 0; transform: translateY(-32px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-32px); }
+}
+.animate-fade-down-up {
+  animation: fade-down-up 4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Remove old drop-in animation if present */
+/* .animate-drop-in { animation: none; } */
