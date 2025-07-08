@@ -20,7 +20,7 @@ export default function Home() {
     <PageContainer>
       <div className="bg-white min-h-screen flex flex-col font-[Manrope,sans-serif] text-[#111827]">
         {/* Hero Section */}
-        <section className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto pt-20 pb-16 px-6 gap-12 w-full">
+        <section className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto pt-32 pb-16 px-6 gap-12 w-full">
           {/* Left */}
           <div className="flex-1 flex flex-col items-start justify-center">
             <h1 className="text-4xl sm:text-5xl font-extrabold text-[#111827] mb-6 leading-tight max-w-2xl drop-shadow-lg">
@@ -103,50 +103,39 @@ export default function Home() {
           </div>
         </section>
 
-        {/* How Miznet Works Heading */}
-        <div className="w-full flex flex-col items-center justify-center bg-[#F9FAFB] pt-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-[#fc0404] mb-4 text-center drop-shadow">How Miznet Works?</h2>
+        {/* See How Miznet Works Button (moved here) */}
+        <div className="flex justify-center mt-8">
+          <a href="/miznet" className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg transition-all duration-300 shadow-md">
+            See How Miznet Works
+          </a>
         </div>
 
-        {/* How It Works Section */}
-        <section id="how" className="bg-[#F9FAFB] py-20 px-6">
-          <div className="max-w-7xl mx-auto flex flex-col gap-16">
-            {/* Step 1 */}
-            <div className="flex flex-col md:flex-row items-center gap-12">
-              <div className="flex-1 flex items-center justify-center">
-                <div className="bg-white rounded-xl p-6 w-full max-w-[400px] aspect-[4/3] flex items-center justify-center">
-                  <span className="text-5xl text-[#fc0404]">🧾</span>
-                </div>
+        {/* Benefits Section */}
+        <section id="benefits" className="bg-[#F9FAFB] py-20 px-6">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#fc0404] mb-12 text-center drop-shadow">Why RetailChain AI?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="flex flex-col items-center bg-white rounded-xl p-8">
+                <span className="text-5xl mb-4">💰</span>
+                <h3 className="text-xl font-bold mb-2 text-[#111827]">Reduce operational cost</h3>
               </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-extrabold text-[#111827] mb-2">Smart Billing with Blockchain</h3>
-                <p className="text-gray-500 mb-2 font-medium">
-                  Product sale logs trigger <span className="font-bold text-[#fc0404]">AI restocking</span> if expiry or
-                  low stock is detected.
-                </p>
+              <div className="flex flex-col items-center bg-white rounded-xl p-8">
+                <span className="text-5xl mb-4">📉</span>
+                <h3 className="text-xl font-bold mb-2 text-[#111827]">Prevent stockouts and overstock</h3>
               </div>
-            </div>
-            {/* Step 2 */}
-            <div className="flex flex-col md:flex-row-reverse items-center gap-12">
-              <div className="flex-1 flex items-center justify-center">
-                <div className="bg-white rounded-xl p-6 w-full max-w-[400px] aspect-[4/3] flex items-center justify-center">
-                  <span className="text-5xl text-[#fc0404]">🏭</span>
-                </div>
+              <div className="flex flex-col items-center bg-white rounded-xl p-8">
+                <span className="text-5xl mb-4">⏱️</span>
+                <h3 className="text-xl font-bold mb-2 text-[#111827]">Save hours of manual labor</h3>
               </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-extrabold text-[#111827] mb-2">Warehouse to Shelf Automation</h3>
-                <p className="text-gray-500 mb-2 font-medium">
-                  Predictive AI sends restock commands directly to{" "}
-                  <span className="font-bold text-[#fc0404]">warehouse bots</span>.
-                </p>
+              <div className="flex flex-col items-center bg-white rounded-xl p-8">
+                <span className="text-5xl mb-4">🧾</span>
+                <h3 className="text-xl font-bold mb-2 text-[#111827]">Comply with traceability laws</h3>
+              </div>
+              <div className="flex flex-col items-center bg-white rounded-xl p-8">
+                <span className="text-5xl mb-4">📊</span>
+                <h3 className="text-xl font-bold mb-2 text-[#111827]">Real-time insights for decision-making</h3>
               </div>
             </div>
-          </div>
-          {/* Button to Works page */}
-          <div className="flex justify-center mt-12">
-            <a href="/miznet" className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg transition-all duration-300 shadow-md">
-              See How Miznet Works
-            </a>
           </div>
         </section>
 

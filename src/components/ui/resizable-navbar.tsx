@@ -134,18 +134,20 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   return (
     <motion.div
       animate={{
-        backdropFilter: visible ? "blur(10px)" : "none",
+        backdropFilter: visible ? "blur(4px)" : "none",
         boxShadow: visible
           ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
           : "none",
         width: visible ? "40%" : "100%",
         y: visible ? 20 : 0,
+        borderRadius: visible ? 9999 : 0,
       }}
       transition={{
         type: "spring",
-        stiffness: 80,
-        damping: 20,
+        stiffness: 60,
+        damping: 18,
         mass: 0.8,
+        duration: 0.7,
       }}
       style={{}}
       className={cn(
@@ -339,15 +341,15 @@ export const NavbarButton = ({
   | React.ComponentPropsWithoutRef<"button">
 )) => {
   const baseStyles =
-    "px-4 py-2 rounded-md bg-white button bg-white text-black text-sm font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2";
+    "px-4 py-2 rounded-md bg-white button bg-white text-black text-sm font-bold relative cursor-pointer transition duration-150 inline-block text-center focus:outline-none focus:ring-2 focus:ring-[#fc0404] focus:ring-offset-2 border border-transparent focus:border-[#fc0404] active:border-[#fc0404]";
 
   const variantStyles = {
     primary:
-      "shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] hover:shadow-lg hover:scale-[1.04] hover:bg-neutral-100",
-    secondary: "bg-transparent shadow-none dark:text-white hover:bg-neutral-100/60 hover:scale-[1.04]",
-    dark: "bg-black text-white shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] hover:shadow-lg hover:scale-[1.04] hover:bg-neutral-900/90",
+      "shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] hover:shadow-md hover:bg-neutral-100 hover:scale-100 hover:-translate-y-0.5 active:scale-95 active:bg-neutral-200",
+    secondary: "bg-transparent shadow-none dark:text-white hover:bg-neutral-100/60 hover:scale-100",
+    dark: "bg-black text-white shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] hover:shadow-md hover:bg-neutral-900/90 hover:scale-100",
     gradient:
-      "bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset] hover:shadow-lg hover:scale-[1.04] hover:from-blue-600 hover:to-blue-800",
+      "bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset] hover:shadow-md hover:from-blue-600 hover:to-blue-800 hover:scale-100",
   };
 
   return (
@@ -362,17 +364,6 @@ export const NavbarButton = ({
 };
 
 export function NavbarDemo() {
-  const [isClient, setIsClient] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-    const checkMobile = () => setIsMobile(window.innerWidth < 640);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   const navItems = [
     {
       name: "Features",
@@ -385,14 +376,26 @@ export function NavbarDemo() {
     {
       name: "Contact",
       link: "/contact",
-      hideOnMobile: true,
     },
   ];
 
-  // Filter navItems for mobile - only on client side
-  const filteredNavItems = isClient 
-    ? navItems.filter((item) => !(item.hideOnMobile && isMobile))
-    : navItems;
+  const [isClient, setIsClient] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [filteredNavItems, setFilteredNavItems] = useState(navItems);
+
+  useEffect(() => {
+    setIsClient(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      setFilteredNavItems(navItems);
+    }
+  }, [isClient, isMobile]);
 
   return (
     <div className="relative w-full">
@@ -400,9 +403,6 @@ export function NavbarDemo() {
         <NavBody>
           <NavbarLogo />
           <NavItems items={filteredNavItems} className="flex flex-row items-center w-auto gap-1 sm:gap-4 min-w-0" />
-          <NavbarButton variant="primary" className="px-2 sm:px-3 py-1 text-xs sm:text-base whitespace-nowrap rounded-full">
-            Book a call
-          </NavbarButton>
         </NavBody>
       </Navbar>
     </div>

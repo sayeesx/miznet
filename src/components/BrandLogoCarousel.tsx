@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Image from 'next/image';
 
 const logos = [
@@ -16,13 +16,28 @@ const logos = [
 const BrandLogoCarousel: React.FC = () => {
   // Repeat logos enough times for seamless loop
   const repeatedLogos = [...logos, ...logos, ...logos, ...logos]
+  const [showTagline, setShowTagline] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setShowTagline(true)
+      } else {
+        setShowTagline(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <div className="w-full bg-white py-6">
       <div className="flex flex-col items-center justify-center w-full">
-        <h3 className="text-center text-base md:text-lg font-semibold text-black mb-4">
-          Designed to Scale With the World&apos;s Largest Retailers
-        </h3>
+        {showTagline && (
+          <h3 className="text-center text-base md:text-lg font-semibold text-black mb-4">
+            Designed to Scale With the World&apos;s Largest Retailers
+          </h3>
+        )}
 
         <div className="relative w-full flex flex-col items-center justify-center overflow-x-hidden">
           {/* Desktop: Static row */}
@@ -62,10 +77,6 @@ const BrandLogoCarousel: React.FC = () => {
           </div>
         </div>
       </div>
-
-      <p className="text-center text-sm md:text-base text-gray-500 mt-10 max-w-2xl mx-auto">
-        We&apos;re looking to partner with innovative retail teams to pilot next-gen supply chain systems
-      </p>
 
       <style jsx>{`
         @keyframes carousel {

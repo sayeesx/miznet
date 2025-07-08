@@ -1,8 +1,12 @@
+import { useRouter } from 'next/navigation'
+
 export default function ContactButton({ className = "", ...props }) {
+  const router = useRouter()
   return (
     <button
       type="button"
-      className={`flex justify-center gap-2 items-center mx-auto text-lg bg-white border-2 border-[#fc0404] text-[#fc0404] font-extrabold focus:ring-2 focus:ring-[#ffb366] focus:outline-none relative z-10 px-6 py-2 overflow-hidden rounded-full group transition-all duration-300 hover:text-white hover:bg-[#fc0404] ${className}`}
+      className={`flex justify-center gap-2 items-center mx-auto text-lg bg-white border-2 border-[#fc0404] text-[#fc0404] font-extrabold relative z-10 px-6 py-2 overflow-hidden rounded-full group transition-all duration-300 hover:text-white hover:bg-[#fc0404] ${className}`}
+      onClick={() => router.push('/contact')}
       {...props}
     >
       <span className="relative z-10">Contact Us</span>
