@@ -282,6 +282,12 @@ export const MobileNavMenu = ({
   className,
   isOpen,
 }: Omit<MobileNavMenuProps, 'onClose'>) => {
+  // If children are nav items, map and wrap with Link
+  const navItems = [
+    { name: "Features", link: "/miznet" },
+    { name: "Pricing", link: "/pricing" },
+    { name: "Contact", link: "/contact" },
+  ];
   return (
     <AnimatePresence>
       {isOpen && (
@@ -294,7 +300,15 @@ export const MobileNavMenu = ({
             className,
           )}
         >
-          {children}
+          {navItems.map((item) => (
+            <Link
+              key={item.link}
+              href={item.link}
+              className="block w-full py-2 px-2 text-base font-medium text-black hover:bg-gray-100 rounded"
+            >
+              {item.name}
+            </Link>
+          ))}
         </motion.div>
       )}
     </AnimatePresence>
@@ -391,18 +405,13 @@ export function NavbarDemo() {
   ];
 
   const { isMobile } = useMobileDetection();
-  const [filteredNavItems, setFilteredNavItems] = useState(navItems);
-
-  useEffect(() => {
-    setFilteredNavItems(navItems);
-  }, [isMobile, navItems]);
 
   return (
     <div className="relative w-full">
       <Navbar>
         <NavBody>
           <NavbarLogo />
-          <NavItems items={filteredNavItems} className="flex flex-row items-center w-auto gap-1 sm:gap-4 min-w-0" />
+          <NavItems items={navItems} className="flex flex-row items-center w-auto gap-1 sm:gap-4 min-w-0" />
         </NavBody>
       </Navbar>
     </div>
