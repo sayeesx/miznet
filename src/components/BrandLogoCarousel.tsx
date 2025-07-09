@@ -10,20 +10,25 @@ const logos = [
   { name: "Big Bazaar", src: "/brandlogos/bigbazaar.svg" },
   { name: "Reliance", src: "/brandlogos/reliance.svg" },
   { name: "DMart", src: "/brandlogos/dmart.svg" },
-  { name: "Max", src: "/brandlogos/max.svg" }, // ✅ Added
+  { name: "Max", src: "/brandlogos/max.svg" },
+  { name: "IKEA", src: "/brandlogos/ikea.svg" }, // ✅ Added
 ]
 
 const BrandLogoCarousel: React.FC = () => {
   // Repeat logos enough times for seamless loop
   const repeatedLogos = [...logos, ...logos, ...logos, ...logos]
   const [showTagline, setShowTagline] = useState(false)
+  const [showCarousel, setShowCarousel] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setShowTagline(true)
+        // Delay showing carousel for fade-up effect after tagline
+        setTimeout(() => setShowCarousel(true), 400)
       } else {
         setShowTagline(false)
+        setShowCarousel(false)
       }
     }
     window.addEventListener('scroll', handleScroll)
@@ -33,13 +38,13 @@ const BrandLogoCarousel: React.FC = () => {
   return (
     <div className="w-full bg-white py-6">
       <div className="flex flex-col items-center justify-center w-full">
-        {showTagline && (
-          <h3 className="text-center text-base md:text-lg font-semibold text-black mb-4">
-            Designed to Scale With the World&apos;s Largest Retailers
-          </h3>
-        )}
+        <h3
+          className={`text-center text-base md:text-lg font-semibold text-black mb-4 transition-all duration-700 ease-out opacity-0 translate-y-6 ${showTagline ? 'fade-up-active' : ''}`}
+        >
+          Designed to Scale With the World&apos;s Largest Retailers
+        </h3>
 
-        <div className="relative w-full flex flex-col items-center justify-center overflow-x-hidden">
+        <div className={`relative w-full flex flex-col items-center justify-center overflow-x-hidden transition-all duration-700 ease-out opacity-0 translate-y-6 ${showCarousel ? 'fade-up-active' : ''}`}>
           {/* Desktop: Static row */}
           <div className="hidden sm:flex flex-wrap justify-center items-center gap-10 w-full">
             {logos.map((logo, idx) => (
@@ -50,7 +55,7 @@ const BrandLogoCarousel: React.FC = () => {
                 <Image
                   src={logo.src}
                   alt={logo.name}
-                  className="h-10 w-20 object-contain filter grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition duration-300"
+                  className="h-10 w-20 object-contain"
                   width={64}
                   height={64}
                 />
@@ -68,7 +73,7 @@ const BrandLogoCarousel: React.FC = () => {
                 <Image
                   src={logo.src}
                   alt={logo.name}
-                  className="h-5 w-16 object-contain filter grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition duration-300"
+                  className="h-5 w-16 object-contain"
                   width={64}
                   height={64}
                 />
@@ -92,6 +97,14 @@ const BrandLogoCarousel: React.FC = () => {
             animation-duration: 32s !important;
             animation-timing-function: linear !important;
           }
+        }
+        .fade-up-active {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+        h3, .relative {
+          opacity: 0;
+          transform: translateY(24px);
         }
       `}</style>
     </div>
