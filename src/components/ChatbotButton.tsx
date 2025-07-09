@@ -5,7 +5,7 @@ export default function ChatbotButton({ onClick }: { onClick?: () => void }) {
     <div className="fixed bottom-6 right-6 z-50">
       <button
         onClick={onClick}
-        className="group relative flex items-center justify-center w-[45px] h-[45px] rounded-full backdrop-blur-md bg-white/20 border-2 border-[#fc0404] text-gray-700 font-semibold hover:w-[125px] hover:rounded-[40px] focus:ring-2 focus:ring-[#fc0404] focus:outline-none transition-all duration-300 shadow-sm active:translate-x-[2px] active:translate-y-[2px] overflow-hidden"
+        className="group relative flex items-center justify-center w-[45px] h-[45px] rounded-full backdrop-blur-md bg-[#F9FAFB]/90 text-[#111827] font-semibold hover:w-[125px] hover:rounded-[40px] focus:ring-2 focus:ring-[#fc0404] focus:outline-none transition-all duration-300 shadow-sm active:translate-x-[2px] active:translate-y-[2px] overflow-hidden"
         aria-label="Open Chatbot"
       >
         {/* Icon container */}
@@ -16,7 +16,7 @@ export default function ChatbotButton({ onClick }: { onClick?: () => void }) {
         </div>
 
         {/* Text container */}
-        <div className="absolute right-0 top-0 w-0 h-full opacity-0 text-gray-700 text-lg font-semibold transition-all duration-300 group-hover:opacity-100 group-hover:w-[70%] flex items-center justify-center group-hover:pr-[10px]">
+        <div className="absolute right-0 top-0 w-0 h-full opacity-0 text-[#111827] text-lg font-semibold transition-all duration-300 group-hover:opacity-100 group-hover:w-[70%] flex items-center justify-center group-hover:pr-[10px]">
           Chat
         </div>
       </button>

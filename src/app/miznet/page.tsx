@@ -174,7 +174,7 @@ export default function Page() {
 
   return (
     <PageContainer>
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-16 px-4 pt-32">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-16 px-4 pt-16">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-20">

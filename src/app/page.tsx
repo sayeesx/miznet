@@ -12,18 +12,49 @@ import immutableTrackingLottie from "../animations/immutabletracking.json"
 import robotLottie from "../animations/robot.json"
 import workerLottie from "../animations/worker.json"
 import BrandLogoCarousel from "../components/BrandLogoCarousel"
+// AOS imports
+// import AOS from 'aos'
+// import 'aos/dist/aos.css'
+import { useInView } from 'react-intersection-observer'
+
+function LazyLottie({ animationData, desktopSize, mobileSize }: { animationData: any, desktopSize: number, mobileSize: number }) {
+  const { ref, inView } = useInView({ triggerOnce: true, rootMargin: '0px 0px' })
+  return (
+    <div ref={ref} className="flex items-center justify-center">
+      {inView && (
+        <Lottie
+          animationData={animationData}
+          loop
+          autoplay
+          style={{ width: '100%', maxWidth: desktopSize, height: 'auto' }}
+          className={`w-[${mobileSize}px] h-[${mobileSize}px] md:w-[${desktopSize}px] md:h-[${desktopSize}px]`}
+          rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
+        />
+      )}
+    </div>
+  )
+}
 
 export default function Home() {
   const [chatOpen, setChatOpen] = React.useState(false)
+
+  React.useEffect(() => {
+    // AOS.init({
+    //   duration: 700,
+    //   once: true,
+    //   offset: 60,
+    //   easing: 'ease-out-cubic',
+    // })
+  }, [])
 
   return (
     <PageContainer>
       <div className="bg-white min-h-screen flex flex-col font-[Manrope,sans-serif] text-[#111827]">
         {/* Hero Section */}
-        <section className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto pt-32 pb-16 px-6 gap-12 w-full">
+        <section className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto pt-16 pb-16 px-6 gap-12 w-full mt-8 md:mt-0">
           {/* Left */}
           <div className="flex-1 flex flex-col items-start justify-center">
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-[#111827] mb-6 leading-tight max-w-2xl drop-shadow-lg">
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-[#111827] mb-6 leading-tight max-w-2xl drop-shadow-sm">
               Track Every Product from Warehouse to Checkout —{" "}
               <span className="text-[#fc0404] font-extrabold">Automatically</span>
             </h1>
@@ -31,7 +62,7 @@ export default function Home() {
               <span className="font-bold text-[#fc0404]">Miznet AI</span> uses blockchain and machine learning to
               eliminate stockouts, manage expiry, and restock shelves without human intervention.
             </p>
-            <ContactButton className="mt-2 self-start ml-0" />
+            <ContactButton className="mt-6 md:mt-2 self-start ml-0" />
           </div>
           {/* Right */}
           <div className="flex-1 flex items-center justify-center hidden sm:flex">
@@ -49,22 +80,19 @@ export default function Home() {
         </section>
 
         {/* Brand Logo Carousel */}
-        <BrandLogoCarousel />
+        <div>
+          <BrandLogoCarousel />
+        </div>
 
         {/* Features Section */}
         <section id="features" className="bg-white py-20 px-6">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-12 text-center drop-shadow">Features</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-12 text-center drop-shadow-sm">Features</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4"> {/* gap reduced further */}
               {/* Feature 1 (AI-Based Restocking) */}
-              <div className="flex flex-col items-center bg-white rounded-xl p-10">
-                <div className="bg-[#fc0404] text-white p-5 rounded-full mb-4 text-4xl flex items-center justify-center" style={{ width: 170, height: 170, background: '#fff' }}>
-                  <Lottie
-                    animationData={robotLottie}
-                    loop
-                    autoplay
-                    style={{ width: 150, height: 150, background: "#fff" }}
-                  />
+              <div className="flex flex-col items-center bg-white rounded-xl p-6 md:p-10"> {/* less padding */}
+                <div className="bg-[#fc0404] text-white p-3 md:p-5 rounded-full mb-2 md:mb-4 text-4xl flex items-center justify-center" style={{ width: '100%', maxWidth: 170, height: 'auto', background: '#fff' }}>
+                  <LazyLottie animationData={robotLottie} desktopSize={150} mobileSize={80} />
                 </div>
                 <h3 className="text-xl font-bold mb-2 text-[#111827]">AI-Based Restocking</h3>
                 <p className="text-gray-500 text-center font-medium">
@@ -72,14 +100,9 @@ export default function Home() {
                 </p>
               </div>
               {/* Feature 2 (Immutable Tracking) */}
-              <div className="flex flex-col items-center bg-white rounded-xl p-10">
-                <div className="bg-[#fc0404] text-white p-5 rounded-full mb-4 text-4xl flex items-center justify-center" style={{ width: 170, height: 170, background: '#fff' }}>
-                  <Lottie
-                    animationData={immutableTrackingLottie}
-                    loop
-                    autoplay
-                    style={{ width: 110, height: 110, background: "#fff" }}
-                  />
+              <div className="flex flex-col items-center bg-white rounded-xl p-6 md:p-10">
+                <div className="bg-[#fc0404] text-white p-3 md:p-5 rounded-full mb-2 md:mb-4 text-4xl flex items-center justify-center" style={{ width: '100%', maxWidth: 170, height: 'auto', background: '#fff' }}>
+                  <LazyLottie animationData={immutableTrackingLottie} desktopSize={110} mobileSize={60} />
                 </div>
                 <h3 className="text-xl font-bold mb-2 text-[#111827]">Immutable Tracking</h3>
                 <p className="text-gray-500 text-center font-medium">
@@ -87,14 +110,9 @@ export default function Home() {
                 </p>
               </div>
               {/* Feature 3 (No Manual Workers Needed) */}
-              <div className="flex flex-col items-center bg-white rounded-xl p-10">
-                <div className="bg-[#fc0404] text-white p-5 rounded-full mb-4 text-4xl flex items-center justify-center" style={{ width: 170, height: 170, background: '#fff' }}>
-                  <Lottie
-                    animationData={workerLottie}
-                    loop
-                    autoplay
-                    style={{ width: 150, height: 150, background: "#fff" }}
-                  />
+              <div className="flex flex-col items-center bg-white rounded-xl p-6 md:p-10">
+                <div className="bg-[#fc0404] text-white p-3 md:p-5 rounded-full mb-2 md:mb-4 text-4xl flex items-center justify-center" style={{ width: '100%', maxWidth: 170, height: 'auto', background: '#fff' }}>
+                  <LazyLottie animationData={workerLottie} desktopSize={150} mobileSize={80} />
                 </div>
                 <h3 className="text-xl font-bold mb-2 text-[#111827]">No Manual Workers Needed</h3>
                 <p className="text-gray-500 text-center font-medium">Eliminates human inventory updates.</p>
@@ -113,7 +131,7 @@ export default function Home() {
         {/* Benefits Section */}
         <section id="benefits" className="bg-[#F9FAFB] py-20 px-6">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#fc0404] mb-12 text-center drop-shadow">Why RetailChain AI?</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#fc0404] mb-12 text-center drop-shadow-sm">Why RetailChain AI?</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="flex flex-col items-center bg-white rounded-xl p-8">
                 <span className="text-5xl mb-4">💰</span>
@@ -145,7 +163,7 @@ export default function Home() {
             <div className="rounded-full border-4 border-[#fc0404] w-48 h-48 flex items-center justify-center mb-8 bg-gray-50">
               <span className="text-7xl text-[#fc0404]">🤝</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-2 drop-shadow">Miznet AI</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-2 drop-shadow-sm">Miznet AI</h2>
             <h3 className="text-lg text-[#fc0404] font-bold mb-4">AI + Blockchain = Autonomous Retail Supply Chain</h3>
             <p className="text-gray-500 max-w-xl font-medium">
               We&apos;re redefining how supermarkets operate using{" "}
@@ -157,7 +175,7 @@ export default function Home() {
         {/* Pricing Section */}
         <section id="pricing" className="bg-[#F9FAFB] py-20 px-6">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-12 text-center drop-shadow">Pricing</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-12 text-center drop-shadow-sm">Pricing</h2>
             <div className="flex flex-col md:flex-row gap-8 justify-center">
               {/* Starter */}
               <div className="flex-1 bg-white rounded-xl p-10 flex flex-col items-center max-w-sm mx-auto">

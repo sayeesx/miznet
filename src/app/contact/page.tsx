@@ -5,7 +5,7 @@ import { cn } from "../../../lib/utils";
 
 // Minimal Label component
 const Label = ({ htmlFor, children }: { htmlFor: string; children: React.ReactNode }) => (
-  <label htmlFor={htmlFor} className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+  <label htmlFor={htmlFor} className="text-sm font-medium text-[#111827]">
     {children}
   </label>
 );
@@ -16,7 +16,7 @@ const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLI
     <input
       ref={ref}
       className={cn(
-        "block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder-neutral-400 shadow-sm focus:border-[#fc0404] focus:outline-none focus:ring-0 dark:border-neutral-700 dark:bg-zinc-900 dark:text-neutral-100 dark:placeholder-neutral-500 transition-colors duration-200 hover:border-[#fc0404]",
+        "block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-[#111827] placeholder-[#888] shadow-sm focus:border-[#fc0404] focus:outline-none focus:ring-0 transition-colors duration-200 hover:border-[#fc0404]",
         className
       )}
       {...props}
@@ -49,7 +49,7 @@ export default function ContactPage() {
 
   return (
     <PageContainer>
-      <div className="min-h-screen flex items-center justify-center relative bg-neutral-50 dark:bg-black pt-24 pb-8 px-2 md:px-0">
+      <div className="min-h-screen flex items-center justify-center relative bg-white pt-16 pb-8 px-2 md:px-0 text-[#111827]">
         {showAlert && (
           <div className="fixed top-0 left-0 w-full flex justify-center z-50 animate-fade-down-up">
             <div className="bg-white text-black px-4 py-2 font-medium text-sm shadow-none rounded-lg flex items-center gap-2">
@@ -58,14 +58,14 @@ export default function ContactPage() {
             </div>
           </div>
         )}
-        <div className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black flex flex-col items-center shadow-md shadow-black/10 relative">
-          <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">Contact Us</h2>
-          <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300 text-center">
+        <div className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 flex flex-col items-center shadow-md shadow-black/10 relative">
+          <h2 className="text-xl font-bold text-[#111827]">Contact Us</h2>
+          <p className="mt-2 max-w-sm text-sm text-[#111827] text-center">
             Fill out the form below to get in touch with us.
           </p>
           {/* Toggle for form type with flex indicator */}
           <div className="w-full flex justify-center my-6">
-            <div className="relative flex w-full max-w-xs bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 overflow-hidden">
+            <div className="relative flex w-full max-w-xs bg-[#F9FAFB] rounded-lg p-1 overflow-hidden">
               <div className="flex w-full h-8">
                 <div className={cn("transition-all duration-300 h-full rounded-md", formType === 'personal' ? 'bg-[#fc0404] w-1/2' : 'w-1/2')} />
                 <div className={cn("transition-all duration-300 h-full rounded-md", formType === 'enterprise' ? 'bg-[#fc0404] w-1/2' : 'w-1/2')} />
@@ -77,7 +77,7 @@ export default function ContactPage() {
                     "flex-1 z-10 px-4 py-2 rounded-md font-medium transition-colors focus:outline-none",
                     formType === 'personal'
                       ? "text-white"
-                      : "text-neutral-800 dark:text-neutral-200"
+                      : "text-[#111827]"
                   )}
                   onClick={() => setFormType('personal')}
                   tabIndex={0}
@@ -90,7 +90,7 @@ export default function ContactPage() {
                     "flex-1 z-10 px-4 py-2 rounded-md font-medium transition-colors focus:outline-none",
                     formType === 'enterprise'
                       ? "text-white"
-                      : "text-neutral-800 dark:text-neutral-200"
+                      : "text-[#111827]"
                   )}
                   onClick={() => setFormType('enterprise')}
                   tabIndex={0}

@@ -12,6 +12,21 @@ import Link from "next/link";
 
 import React, { useRef, useState, useEffect } from "react";
 
+// Custom hook for mobile detection that avoids hydration issues
+const useMobileDetection = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return { isMobile: hasMounted ? isMobile : false, hasMounted };
+};
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -86,22 +101,14 @@ export const Navbar = ({ children, className }: NavbarProps) => {
 };
 
 export const NavBody = ({ children, className, visible }: NavBodyProps) => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [show, setShow] = useState(true);
-  const [isClient, setIsClient] = useState(false);
+  const { isMobile, hasMounted } = useMobileDetection();
+  const [show, setShow] = useState(true); // Always start visible
   const lastScrollY = useRef(0);
 
+  // Auto-hide navbar on scroll for mobile - but only after initial load
   useEffect(() => {
-    setIsClient(true);
-    const checkMobile = () => setIsMobile(window.innerWidth < 640);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Auto-hide navbar on scroll for mobile
-  useEffect(() => {
-    if (!isMobile || !isClient) return;
+    if (!isMobile || !hasMounted) return;
+    
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       if (currentScrollY > lastScrollY.current && currentScrollY > 40) {
@@ -111,17 +118,26 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
       }
       lastScrollY.current = currentScrollY;
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMobile, isClient]);
+    
+    // Small delay to ensure navbar is visible on first load
+    const timer = setTimeout(() => {
+      window.addEventListener('scroll', handleScroll);
+    }, 200);
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isMobile, hasMounted]);
 
-  if (isMobile && isClient) {
+  // Always render mobile navbar if mobile is detected, even before full mount
+  if (isMobile) {
     return (
       <div
         className={cn(
           "fixed top-0 left-0 right-0 transition-transform duration-500 ease-in-out",
           show ? "translate-y-0" : "-translate-y-full",
-          "z-[60] mx-auto w-full max-w-full flex flex-row items-center justify-between self-start bg-white px-1 py-1 gap-1 overflow-x-auto whitespace-nowrap border-b border-gray-200 shadow-sm flex-nowrap min-w-0",
+          "z-[60] mx-auto w-full max-w-full flex flex-row items-center justify-between self-start bg-white px-1 py-1 gap-1 overflow-hidden whitespace-nowrap border-b border-gray-200 shadow-sm flex-nowrap min-w-0",
           className,
         )}
       >
@@ -144,10 +160,10 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
       }}
       transition={{
         type: "spring",
-        stiffness: 60,
-        damping: 18,
+        stiffness: 180, // increased for snappier, smoother feel
+        damping: 22,    // reduced for less resistance
         mass: 0.8,
-        duration: 0.7,
+        duration: 0.9,  // slightly longer for fluidity
       }}
       style={{}}
       className={cn(
@@ -178,7 +194,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
     <div
       onMouseLeave={() => {}}
       className={cn(
-        "flex flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 min-w-0",
+        "flex flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 min-w-0 overflow-hidden flex-nowrap",
         className,
       )}
     >
@@ -301,18 +317,13 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   const pathname = usePathname();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   return (
     <Link
       href="/"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal"
       onClick={e => {
-        if (pathname === "/" && isClient) {
+        if (pathname === "/") {
           window.scrollTo({ top: 0, behavior: "smooth" });
           e.preventDefault();
         }
@@ -379,23 +390,12 @@ export function NavbarDemo() {
     },
   ];
 
-  const [isClient, setIsClient] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const { isMobile, hasMounted } = useMobileDetection();
   const [filteredNavItems, setFilteredNavItems] = useState(navItems);
 
   useEffect(() => {
-    setIsClient(true);
-    const checkMobile = () => setIsMobile(window.innerWidth < 640);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    if (isClient) {
-      setFilteredNavItems(navItems);
-    }
-  }, [isClient, isMobile]);
+    setFilteredNavItems(navItems);
+  }, [isMobile]);
 
   return (
     <div className="relative w-full">
