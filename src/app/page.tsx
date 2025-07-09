@@ -17,7 +17,7 @@ import BrandLogoCarousel from "../components/BrandLogoCarousel"
 // import 'aos/dist/aos.css'
 import { useInView } from 'react-intersection-observer'
 
-function LazyLottie({ animationData, desktopSize, mobileSize }: { animationData: any, desktopSize: number, mobileSize: number }) {
+function LazyLottie({ animationData, desktopSize, mobileSize }: { animationData: object, desktopSize: number, mobileSize: number }) {
   const { ref, inView } = useInView({ triggerOnce: true, rootMargin: '0px 0px' })
   return (
     <div ref={ref} className="flex items-center justify-center">

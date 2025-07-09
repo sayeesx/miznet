@@ -390,12 +390,12 @@ export function NavbarDemo() {
     },
   ];
 
-  const { isMobile, hasMounted } = useMobileDetection();
+  const { isMobile } = useMobileDetection();
   const [filteredNavItems, setFilteredNavItems] = useState(navItems);
 
   useEffect(() => {
     setFilteredNavItems(navItems);
-  }, [isMobile]);
+  }, [isMobile, navItems]);
 
   return (
     <div className="relative w-full">
