@@ -278,10 +278,9 @@ export const MobileNavHeader = ({
 };
 
 export const MobileNavMenu = ({
-  children,
   className,
   isOpen,
-}: Omit<MobileNavMenuProps, 'onClose'>) => {
+}: Omit<MobileNavMenuProps, 'onClose' | 'children'>) => {
   // If children are nav items, map and wrap with Link
   const navItems = [
     { name: "Features", link: "/miznet" },
@@ -390,21 +389,10 @@ export const NavbarButton = ({
 
 export function NavbarDemo() {
   const navItems = [
-    {
-      name: "Features",
-      link: "/miznet",
-    },
-    {
-      name: "Pricing",
-      link: "/pricing",
-    },
-    {
-      name: "Contact",
-      link: "/contact",
-    },
+    { name: "Features", link: "/miznet" },
+    { name: "Pricing", link: "/pricing" },
+    { name: "Contact", link: "/contact" },
   ];
-
-  const { isMobile } = useMobileDetection();
 
   return (
     <div className="relative w-full">
