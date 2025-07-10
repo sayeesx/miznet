@@ -12,6 +12,8 @@ import immutableTrackingLottie from "../animations/immutabletracking.json"
 import robotLottie from "../animations/robot.json"
 import workerLottie from "../animations/worker.json"
 import BrandLogoCarousel from "../components/BrandLogoCarousel"
+import BenefitsSection from "../components/BenefitsSection"
+import AnimatedButton from "../components/AnimatedButton"
 // AOS imports
 // import AOS from 'aos'
 // import 'aos/dist/aos.css'
@@ -122,40 +124,14 @@ export default function Home() {
         </section>
 
         {/* See How Miznet Works Button (moved here) */}
-        <div className="flex justify-center mt-8">
-          <a href="/miznet" className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg transition-all duration-300 shadow-md">
+        <div className="flex justify-center -mt-8 mb-16">
+          <AnimatedButton href="/miznet" small>
             See How Miznet Works
-          </a>
+          </AnimatedButton>
         </div>
 
         {/* Benefits Section */}
-        <section id="benefits" className="bg-[#F9FAFB] py-20 px-6">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#fc0404] mb-12 text-center drop-shadow-sm">Why RetailChain AI?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center bg-white rounded-xl p-8">
-                <span className="text-5xl mb-4">💰</span>
-                <h3 className="text-xl font-bold mb-2 text-[#111827]">Reduce operational cost</h3>
-              </div>
-              <div className="flex flex-col items-center bg-white rounded-xl p-8">
-                <span className="text-5xl mb-4">📉</span>
-                <h3 className="text-xl font-bold mb-2 text-[#111827]">Prevent stockouts and overstock</h3>
-              </div>
-              <div className="flex flex-col items-center bg-white rounded-xl p-8">
-                <span className="text-5xl mb-4">⏱️</span>
-                <h3 className="text-xl font-bold mb-2 text-[#111827]">Save hours of manual labor</h3>
-              </div>
-              <div className="flex flex-col items-center bg-white rounded-xl p-8">
-                <span className="text-5xl mb-4">🧾</span>
-                <h3 className="text-xl font-bold mb-2 text-[#111827]">Comply with traceability laws</h3>
-              </div>
-              <div className="flex flex-col items-center bg-white rounded-xl p-8">
-                <span className="text-5xl mb-4">📊</span>
-                <h3 className="text-xl font-bold mb-2 text-[#111827]">Real-time insights for decision-making</h3>
-              </div>
-            </div>
-          </div>
-        </section>
+        <BenefitsSection />
 
         {/* About Section */}
         <section id="about" className="bg-white py-20 px-6">
@@ -190,7 +166,7 @@ export default function Home() {
                 </div>
                 <a
                   href="#"
-                  className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg"
+                  className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#fc0404]/80 focus:ring-2 focus:ring-[#fc0404] focus:outline-none text-lg"
                 >
                   Start Now
                 </a>
@@ -208,7 +184,7 @@ export default function Home() {
                 </div>
                 <a
                   href="#"
-                  className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg"
+                  className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#fc0404]/80 focus:ring-2 focus:ring-[#fc0404] focus:outline-none text-lg"
                 >
                   Start Now
                 </a>
@@ -224,7 +200,7 @@ export default function Home() {
                 <div className="text-3xl font-extrabold text-[#fc0404] mb-4">Contact Us</div>
                 <a
                   href="#"
-                  className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#ff8800] focus:ring-2 focus:ring-[#ffb366] focus:outline-none text-lg"
+                  className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#fc0404]/80 focus:ring-2 focus:ring-[#fc0404] focus:outline-none text-lg"
                 >
                   Start Now
                 </a>
