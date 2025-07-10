@@ -132,7 +132,7 @@ export default function Home() {
         </div>
 
         {/* Benefits Section + Performance Analytics */}
-        <section className="w-full flex flex-col md:flex-row items-center justify-center gap-8 my-12">
+        <section className="w-full flex flex-col md:flex-row items-center justify-center gap-0 my-12">
           {/* BenefitsSection on left, BenfitChart on right (desktop); stacked on mobile */}
           <div className="w-full md:w-2/3 flex justify-center">
             <BenefitsSection />

@@ -58,8 +58,8 @@ const BenefitsSection: React.FC = () => {
         <div
           className="blob"
           style={{
-            left: `${blobX}%`,
-            top: `${blobY}%`,
+            left: '10%',
+            top: '10%',
             transform: 'translate(-50%, -50%)',
           }}
         />
@@ -67,6 +67,7 @@ const BenefitsSection: React.FC = () => {
           <div className="card-text">
             <span className="card_title">Key Benefits</span>
             <p className="card_paragraph">Transform your business with our smart inventory solutions.</p>
+            <AnimatedButton href="/contact" icon={ArrowIcon} small={true}>Get Started Today</AnimatedButton>
           </div>
           <div className="card-list-button">
             <ul className="card__list">
@@ -84,7 +85,6 @@ const BenefitsSection: React.FC = () => {
                 </li>
               ))}
             </ul>
-            <AnimatedButton href="/contact" icon={ArrowIcon}>Get Started Today</AnimatedButton>
           </div>
         </div>
       </div>
@@ -96,10 +96,11 @@ const StyledWrapper = styled.div`
   margin-top: 8px;
   padding: 2rem 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
   overflow: visible;
+  margin-left: 2rem;
 
   .card {
     --white: hsl(0, 0%, 100%);
@@ -112,6 +113,7 @@ const StyledWrapper = styled.div`
 
     position: relative;
     z-index: 1;
+    margin-right: 4rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -123,7 +125,8 @@ const StyledWrapper = styled.div`
     min-height: 24rem;
     background-color: var(--white);
     border-radius: 28px;
-    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+    /* Subtle shadow */
+    box-shadow: 0 6px 24px 0 rgba(0,0,0,0.08);
   }
 
   .blob {
@@ -149,7 +152,7 @@ const StyledWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center; /* Vertically center both columns */
+    align-items: center;
     height: 100%;
     padding: 3rem 3.5rem 2.5rem 3.5rem;
     gap: 2.5rem;
@@ -265,13 +268,19 @@ const StyledWrapper = styled.div`
   }
 
   @media (max-width: 768px) {
-    margin-top: 2px;
-    padding: 1rem 0;
+    margin-top: 0;
+    margin-left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 0;
     .card {
       max-width: 22rem;
       min-height: unset;
       padding: 0;
       border-radius: 16px;
+      margin-right: 0;
+      margin-left: 0;
     }
     .card-content {
       flex-direction: column;
