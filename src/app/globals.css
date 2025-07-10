@@ -278,3 +278,65 @@ body::-webkit-scrollbar {
   font-size: 0.875rem;
   color: transparent;
 }
+
+/* Benefit Card Animation */
+.benefit-card-animated {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.benefit-card-bg {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(24px);
+  border-radius: 0.75rem;
+  outline: 2px solid white;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.benefit-card-blob {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #ff0000;
+  opacity: 1;
+  filter: blur(12px);
+  animation: benefit-blob-bounce 5s infinite ease;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .benefit-card-blob {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@keyframes benefit-blob-bounce {
+  0% {
+    transform: translate(-100%, -100%) translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate(-100%, -100%) translate3d(100%, 0, 0);
+  }
+  50% {
+    transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
+  }
+  75% {
+    transform: translate(-100%, -100%) translate3d(0, 100%, 0);
+  }
+  100% {
+    transform: translate(-100%, -100%) translate3d(0, 0, 0);
+  }
+}

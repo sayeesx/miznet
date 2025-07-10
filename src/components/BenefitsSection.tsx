@@ -8,13 +8,17 @@ interface BenefitCardProps {
 
 function BenefitCard({ emoji, title, description }: BenefitCardProps) {
   return (
-    <div className="flex flex-col items-center bg-white rounded-lg p-4 md:p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
-      <span className="text-3xl md:text-4xl mb-3">{emoji}</span>
-      <h3 className="text-sm md:text-base font-semibold text-[#111827] mb-2 text-center">
+    <div className="benefit-card-animated flex flex-col items-center bg-white rounded-lg p-4 md:p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+      {/* Animation layers */}
+      <div className="benefit-card-bg" />
+      <div className="benefit-card-blob" />
+      {/* Card content */}
+      <span className="text-3xl md:text-4xl mb-3 z-10">{emoji}</span>
+      <h3 className="text-sm md:text-base font-semibold text-[#111827] mb-2 text-center z-10">
         {title}
       </h3>
       {description && (
-        <p className="text-xs md:text-sm text-gray-500 text-center">
+        <p className="text-xs md:text-sm text-gray-500 text-center z-10">
           {description}
         </p>
       )}
