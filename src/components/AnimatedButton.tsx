@@ -6,9 +6,9 @@ const AnimatedButton = ({ href, children, small = false, icon }: { href: string;
     <StyledWrapper>
       <GlassButton href={href} $small={small}>
         {icon ? (
-          React.isValidElement(icon)
+          React.isValidElement(icon) && typeof icon.type === 'string' && icon.type === 'svg'
             ? React.cloneElement(
-                icon,
+                icon as React.ReactElement<{ style?: React.CSSProperties }>,
                 {
                   style: {
                     ...(typeof icon.props === 'object' && icon.props && 'style' in icon.props && typeof icon.props.style === 'object' ? icon.props.style : {}),
