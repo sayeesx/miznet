@@ -295,7 +295,7 @@ body::-webkit-scrollbar {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(24px);
   border-radius: 0.75rem;
-  outline: 2px solid white;
+  /* outline: 2px solid white; */
   z-index: 2;
   pointer-events: none;
 }
@@ -309,8 +309,8 @@ body::-webkit-scrollbar {
   height: 120px;
   border-radius: 50%;
   background-color: #ff0000;
-  opacity: 1;
-  filter: blur(12px);
+  opacity: 0.08;
+  filter: blur(24px);
   animation: benefit-blob-bounce 5s infinite ease;
   transform: translate(-50%, -50%);
   pointer-events: none;

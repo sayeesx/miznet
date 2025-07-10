@@ -14,6 +14,7 @@ import workerLottie from "../animations/worker.json"
 import BrandLogoCarousel from "../components/BrandLogoCarousel"
 import BenefitsSection from "../components/BenefitsSection"
 import AnimatedButton from "../components/AnimatedButton"
+import BenfitChart from "../components/benfitchart";
 // AOS imports
 // import AOS from 'aos'
 // import 'aos/dist/aos.css'
@@ -124,14 +125,22 @@ export default function Home() {
         </section>
 
         {/* See How Miznet Works Button (moved here) */}
-        <div className="flex justify-center -mt-8 mb-16">
+        <div className="flex justify-center -mt-4 mb-6">
           <AnimatedButton href="/miznet" small>
             See How Miznet Works
           </AnimatedButton>
         </div>
 
-        {/* Benefits Section */}
-        <BenefitsSection />
+        {/* Benefits Section + Performance Analytics */}
+        <section className="w-full flex flex-col md:flex-row items-center justify-center gap-8 my-12">
+          {/* BenefitsSection on left, BenfitChart on right (desktop); stacked on mobile */}
+          <div className="w-full md:w-2/3 flex justify-center">
+            <BenefitsSection />
+          </div>
+          <div className="w-full md:w-1/3 flex justify-center mt-8 md:mt-0">
+            <BenfitChart />
+          </div>
+        </section>
 
         {/* About Section */}
         <section id="about" className="bg-white py-20 px-6">
