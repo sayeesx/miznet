@@ -7,36 +7,18 @@ import ContactButton from "../components/ContactButton"
 import Image from "next/image"
 import abstract1 from '../../assets/abstract/abstract1.webp'
 import PageContainer from "../components/PageContainer"
-import Lottie from "lottie-react"
-import immutableTrackingLottie from "../animations/immutabletracking.json"
-import robotLottie from "../animations/robot.json"
-import workerLottie from "../animations/worker.json"
 import BrandLogoCarousel from "../components/BrandLogoCarousel"
-import BenefitsSection from "../components/BenefitsSection"
-import AnimatedButton from "../components/AnimatedButton"
-import BenfitChart from "../components/benfitchart";
+import BenfitChart from "../components/benfitcomponent/benfitchart";
+import BenefitsSection from "../components/benfitcomponent/BenefitsSection";
+import BenefitMetrics from "../components/benfitcomponent/BenefitMetrics";
+import FeaturesSection from "../components/FeaturesSection";
+import AboutSection from "../components/AboutSection";
 // AOS imports
 // import AOS from 'aos'
 // import 'aos/dist/aos.css'
-import { useInView } from 'react-intersection-observer'
+import AnimatedButton from "../components/AnimatedButton";
 
-function LazyLottie({ animationData, desktopSize, mobileSize }: { animationData: object, desktopSize: number, mobileSize: number }) {
-  const { ref, inView } = useInView({ triggerOnce: true, rootMargin: '0px 0px' })
-  return (
-    <div ref={ref} className="flex items-center justify-center">
-      {inView && (
-        <Lottie
-          animationData={animationData}
-          loop
-          autoplay
-          style={{ width: '100%', maxWidth: desktopSize, height: 'auto' }}
-          className={`w-[${mobileSize}px] h-[${mobileSize}px] md:w-[${desktopSize}px] md:h-[${desktopSize}px]`}
-          rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
-        />
-      )}
-    </div>
-  )
-}
+
 
 export default function Home() {
   const [chatOpen, setChatOpen] = React.useState(false)
@@ -87,149 +69,45 @@ export default function Home() {
           <BrandLogoCarousel />
         </div>
 
-        {/* Features Section */}
-        <section id="features" className="bg-white py-20 px-6">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-12 text-center drop-shadow-sm">Features</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4"> {/* gap reduced further */}
-              {/* Feature 1 (AI-Based Restocking) */}
-              <div className="flex flex-col items-center bg-white rounded-xl p-6 md:p-10"> {/* less padding */}
-                <div className="bg-[#fc0404] text-white p-3 md:p-5 rounded-full mb-2 md:mb-4 text-4xl flex items-center justify-center" style={{ width: '100%', maxWidth: 170, height: 'auto', background: '#fff' }}>
-                  <LazyLottie animationData={robotLottie} desktopSize={150} mobileSize={80} />
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-[#111827]">AI-Based Restocking</h3>
-                <p className="text-gray-500 text-center font-medium">
-                  Forecasts demand and triggers automated stock movement.
-                </p>
-              </div>
-              {/* Feature 2 (Immutable Tracking) */}
-              <div className="flex flex-col items-center bg-white rounded-xl p-6 md:p-10">
-                <div className="bg-[#fc0404] text-white p-3 md:p-5 rounded-full mb-2 md:mb-4 text-4xl flex items-center justify-center" style={{ width: '100%', maxWidth: 170, height: 'auto', background: '#fff' }}>
-                  <LazyLottie animationData={immutableTrackingLottie} desktopSize={110} mobileSize={60} />
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-[#111827]">Immutable Tracking</h3>
-                <p className="text-gray-500 text-center font-medium">
-                  Blockchain logs every product from supplier to customer.
-                </p>
-              </div>
-              {/* Feature 3 (No Manual Workers Needed) */}
-              <div className="flex flex-col items-center bg-white rounded-xl p-6 md:p-10">
-                <div className="bg-[#fc0404] text-white p-3 md:p-5 rounded-full mb-2 md:mb-4 text-4xl flex items-center justify-center" style={{ width: '100%', maxWidth: 170, height: 'auto', background: '#fff' }}>
-                  <LazyLottie animationData={workerLottie} desktopSize={150} mobileSize={80} />
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-[#111827]">No Manual Workers Needed</h3>
-                <p className="text-gray-500 text-center font-medium">Eliminates human inventory updates.</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <FeaturesSection />
 
         {/* See How Miznet Works Button (moved here) */}
-        <div className="flex justify-center -mt-4 mb-6">
+        <div className="flex justify-center -mt-6 mb-2"> {/* reduced margin-top and margin-bottom */}
           <AnimatedButton href="/miznet" small>
             See How Miznet Works
           </AnimatedButton>
         </div>
 
         {/* Benefits Section + Performance Analytics */}
-        <section className="w-full flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0 my-9 md:my-12">
+        <section className="w-full flex flex-col md:flex-row items-center justify-center gap-0 my-0 mt-2"> {/* add mt-2 for slight separation, gap-0 for no gap */}
           {/* BenefitsSection on left, BenfitChart on right (desktop); stacked on mobile */}
-          <div className="w-full md:w-2/3 flex justify-center">
+          <div className="w-full md:w-2/3 flex justify-center md:mr-2"> {/* add md:mr-2 for a small gap on desktop */}
             <BenefitsSection />
           </div>
-          <div className="w-full flex justify-center mt-4 mb-4 md:mt-0 md:mb-0 md:max-w-xl px-4 md:px-12">
+          <div className="w-full flex justify-center md:max-w-xl px-2 md:px-4"> {/* reduce px */}
             <BenfitChart />
           </div>
         </section>
+        <div className="w-full flex justify-center md:max-w-4xl px-1 md:px-2 mt-1 mb-0 mx-auto"> {/* increased max-width for metrics */}
+          <BenefitMetrics />
+        </div>
 
-        {/* About Section */}
-        <section id="about" className="bg-white py-20 px-6">
-          <div className="max-w-3xl mx-auto flex flex-col items-center text-center">
-            <div className="rounded-full border-4 border-[#fc0404] w-48 h-48 flex items-center justify-center mb-8 bg-gray-50">
-              <span className="text-7xl text-[#fc0404]">🤝</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-2 drop-shadow-sm">Miznet AI</h2>
-            <h3 className="text-lg text-[#fc0404] font-bold mb-4">AI + Blockchain = Autonomous Retail Supply Chain</h3>
-            <p className="text-gray-500 max-w-xl font-medium">
-              We&apos;re redefining how supermarkets operate using{" "}
-              <span className="font-bold text-[#fc0404]">secure, intelligent automation</span>.
-            </p>
-          </div>
-        </section>
+        <AboutSection />
 
-        {/* Pricing Section */}
-        <section id="pricing" className="bg-[#F9FAFB] py-20 px-6">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-12 text-center drop-shadow-sm">Pricing</h2>
-            <div className="flex flex-col md:flex-row gap-8 justify-center">
-              {/* Starter */}
-              <div className="flex-1 bg-white rounded-xl p-10 flex flex-col items-center max-w-sm mx-auto">
-                <h3 className="text-xl font-bold mb-2 text-[#111827]">Starter</h3>
-                <ul className="text-gray-500 mb-6 text-left list-disc list-inside font-medium">
-                  <li>Up to 2 stores</li>
-                  <li>Basic analytics</li>
-                  <li>Email support</li>
-                </ul>
-                <div className="text-3xl font-extrabold text-[#fc0404] mb-4">
-                  $49<span className="text-base font-normal text-gray-500">/mo</span>
-                </div>
-                <a
-                  href="#"
-                  className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#fc0404]/80 focus:ring-2 focus:ring-[#fc0404] focus:outline-none text-lg"
-                >
-                  Start Now
-                </a>
-              </div>
-              {/* Pro */}
-              <div className="flex-1 bg-white rounded-xl p-10 flex flex-col items-center max-w-sm mx-auto">
-                <h3 className="text-xl font-bold mb-2 text-[#111827]">Pro</h3>
-                <ul className="text-gray-500 mb-6 text-left list-disc list-inside font-medium">
-                  <li>Up to 10 stores</li>
-                  <li>Advanced analytics</li>
-                  <li>Priority support</li>
-                </ul>
-                <div className="text-3xl font-extrabold text-[#fc0404] mb-4">
-                  $149<span className="text-base font-normal text-gray-500">/mo</span>
-                </div>
-                <a
-                  href="#"
-                  className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#fc0404]/80 focus:ring-2 focus:ring-[#fc0404] focus:outline-none text-lg"
-                >
-                  Start Now
-                </a>
-              </div>
-              {/* Enterprise */}
-              <div className="flex-1 bg-white rounded-xl p-10 flex flex-col items-center max-w-sm mx-auto">
-                <h3 className="text-xl font-bold mb-2 text-[#111827]">Enterprise</h3>
-                <ul className="text-gray-500 mb-6 text-left list-disc list-inside font-medium">
-                  <li>Unlimited stores</li>
-                  <li>Custom integrations</li>
-                  <li>Dedicated support</li>
-                </ul>
-                <div className="text-3xl font-extrabold text-[#fc0404] mb-4">Contact Us</div>
-                <a
-                  href="#"
-                  className="px-8 py-3 rounded-full bg-[#fc0404] text-white font-extrabold hover:bg-[#fc0404]/80 focus:ring-2 focus:ring-[#fc0404] focus:outline-none text-lg"
-                >
-                  Start Now
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+
 
         {/* Footer */}
-        <footer className="bg-[#111827] text-[#F9FAFB] py-8 px-6 mt-auto">
+        <footer className="bg-[#111827]/80 backdrop-blur-sm text-[#F9FAFB] py-8 px-6 mt-auto border-t border-white/10">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-[#F9FAFB] font-bold">© 2025 Miznet AI</div>
             <div className="flex gap-6 text-[#F9FAFB] text-sm">
-              <a href="#" className="hover:underline font-semibold">
+              <a href="#" className="hover:underline font-semibold transition-colors duration-200 hover:text-[#fc0404]">
                 Terms
               </a>
-              <a href="#" className="hover:underline font-semibold">
+              <a href="#" className="hover:underline font-semibold transition-colors duration-200 hover:text-[#fc0404]">
                 Privacy
               </a>
-              <a href="#" className="hover:underline font-semibold">
+              <a href="#" className="hover:underline font-semibold transition-colors duration-200 hover:text-[#fc0404]">
                 Contact
               </a>
             </div>

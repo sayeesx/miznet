@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import AnimatedButton from './AnimatedButton';
+import AnimatedButton from '../AnimatedButton';
 
 interface Benefit {
   title: string;
@@ -87,7 +87,6 @@ const BenefitsSection: React.FC = () => {
 };
 
 const StyledWrapper = styled.div`
-  margin-top: 8px;
   padding: 2rem 0;
   display: flex;
   justify-content: flex-start;
