@@ -48,10 +48,6 @@ const BenefitsSection: React.FC = () => {
     }
   ];
 
-  // More fluid, organic blob path
-  const blobX = 35 + 30 * Math.sin(scrollY / 120) + 10 * Math.sin(scrollY / 40);
-  const blobY = 50 + 25 * Math.cos(scrollY / 90) + 8 * Math.sin(scrollY / 60);
-
   return (
     <StyledWrapper>
       <div className="card">

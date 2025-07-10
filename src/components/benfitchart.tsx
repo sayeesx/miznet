@@ -2,7 +2,7 @@ import React from 'react';
 
 const BenfitChart = () => {
   return (
-    <div className="relative flex w-full max-w-2xl flex-col rounded-2xl bg-white min-h-[24rem] overflow-hidden justify-center items-center px-8 mx-auto sm:px-4 sm:max-w-full" style={{ boxShadow: '0 6px 24px 0 rgba(0,0,0,0.08)' }}>
+    <div className="relative flex w-full max-w-full flex-col rounded-2xl bg-white min-h-[24rem] overflow-hidden justify-center items-center px-8 mx-auto sm:px-4" style={{ boxShadow: '0 6px 24px 0 rgba(0,0,0,0.08)' }}>
       {/* Red blurred blob background, fixed to top right */}
       <div className="absolute right-8 top-8 w-[60%] h-[70%] min-w-[120px] min-h-[120px] max-w-[320px] max-h-[320px] rounded-full bg-[#fc0404] opacity-15 blur-3xl pointer-events-none z-0" />
       <div className="relative z-10 w-full">
