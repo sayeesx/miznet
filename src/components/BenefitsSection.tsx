@@ -15,11 +15,9 @@ const ArrowIcon = (
 );
 
 const BenefitsSection: React.FC = () => {
-  const [scrollY, setScrollY] = useState(0);
-
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      // setScrollY(window.scrollY); // This line was removed as per the edit hint.
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
