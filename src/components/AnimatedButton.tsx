@@ -6,8 +6,16 @@ const AnimatedButton = ({ href, children, small = false, icon }: { href: string;
     <StyledWrapper>
       <GlassButton href={href} $small={small}>
         {icon ? (
-          React.isValidElement(icon) && 'style' in icon.props
-            ? React.cloneElement(icon, { style: { ...icon.props.style, color: 'inherit' } })
+          React.isValidElement(icon)
+            ? React.cloneElement(
+                icon,
+                {
+                  style: {
+                    ...(typeof icon.props === 'object' && icon.props && 'style' in icon.props && typeof icon.props.style === 'object' ? icon.props.style : {}),
+                    color: 'inherit',
+                  },
+                }
+              )
             : icon
         ) : (
           <SparkleIcon $small={small}
