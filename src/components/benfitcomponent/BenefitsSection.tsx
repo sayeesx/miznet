@@ -15,12 +15,22 @@ const ArrowIcon = (
 );
 
 const BenefitsSection: React.FC = () => {
+  const [isVisible, setIsVisible] = React.useState(false);
+  
   useEffect(() => {
-    const handleScroll = () => {
-      // setScrollY(window.scrollY); // This line was removed as per the edit hint.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    
+    const element = document.getElementById('benefits-section');
+    if (element) observer.observe(element);
+    
+    return () => {
+      if (element) observer.unobserve(element);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const benefits: Benefit[] = [
@@ -47,7 +57,7 @@ const BenefitsSection: React.FC = () => {
   ];
 
   return (
-    <StyledWrapper>
+    <StyledWrapper id="benefits-section" className={`transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
       <div className="card">
         <div
           className="blob"
@@ -87,13 +97,14 @@ const BenefitsSection: React.FC = () => {
 };
 
 const StyledWrapper = styled.div`
-  padding: 2rem 0;
+  padding: 1rem;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  min-height: 100vh;
+  justify-content: center;
+  align-items: stretch;
+  min-height: auto;
   overflow: visible;
-  margin-left: 2rem;
+  width: 100%;
+  margin: 0;
 
   .card {
     --white: hsl(0, 0%, 100%);
@@ -163,7 +174,7 @@ const StyledWrapper = styled.div`
   }
 
   .card_title {
-    font-size: 2.1rem;
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
     font-weight: 700;
     color: var(--black);
     margin-bottom: 0.5rem;
@@ -261,23 +272,17 @@ const StyledWrapper = styled.div`
   }
 
   @media (max-width: 768px) {
-    margin-top: 0;
-    margin-left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem 0;
+    padding: 0.5rem;
     .card {
-      max-width: 22rem;
+      max-width: 100%;
       min-height: unset;
       padding: 0;
       border-radius: 16px;
-      margin-right: 0;
-      margin-left: 0;
+      margin: 0;
     }
     .card-content {
       flex-direction: column;
-      padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+      padding: 1.2rem;
       gap: 1.1rem;
     }
     .card-text, .card-list-button {

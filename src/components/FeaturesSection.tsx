@@ -47,7 +47,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ logoCarouselVisible }
       ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <h2 
-          className={`text-5xl font-bold text-gray-900 mb-12 text-left transform transition-all duration-1000 ease-out ${
+          className={`text-[1.5rem] md:text-[2.1rem] font-bold text-gray-900 mb-8 text-left whitespace-nowrap transform transition-all duration-1000 ease-out ${
             shouldShow ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >

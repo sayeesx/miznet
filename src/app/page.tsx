@@ -23,8 +23,20 @@ import AnimatedButton from "../components/AnimatedButton";
 export default function Home() {
   const [chatOpen, setChatOpen] = React.useState(false)
   const [logoCarouselVisible, setLogoCarouselVisible] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
+    // Simulate checking if page is ready
+    const checkPageReady = () => {
+      if (document.readyState === 'complete') {
+        setTimeout(() => setIsLoading(false), 500) // Small delay to ensure smooth transition
+      } else {
+        window.addEventListener('load', () => {
+          setTimeout(() => setIsLoading(false), 500)
+        })
+      }
+    }
+    checkPageReady()
     // AOS.init({
     //   duration: 700,
     //   once: true,
@@ -35,12 +47,17 @@ export default function Home() {
 
   return (
     <PageContainer>
-      <div className="bg-white min-h-screen flex flex-col font-[Manrope,sans-serif] text-[#111827]">
+      {isLoading ? (
+        <div className="fixed inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm z-50">
+          <div className="w-12 h-12 border-3 border-[#fc0404] border-t-transparent rounded-full animate-[spin_0.6s_linear_infinite]"></div>
+        </div>
+      ) : null}
+      <div className={`bg-white min-h-screen flex flex-col font-[Manrope,sans-serif] text-[#111827] ${isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-500'}`}>
         {/* Hero Section */}
         <section className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto pt-16 pb-16 px-6 gap-12 w-full mt-8 md:mt-0">
           {/* Left */}
           <div className="flex-1 flex flex-col items-start justify-center">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight max-w-2xl">
+            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight max-w-2xl">
               Track Every Product from Warehouse to Checkout —{" "}
               <span className="text-[#fc0404]">Automatically</span>
             </h1>
@@ -66,30 +83,29 @@ export default function Home() {
         </section>
 
         {/* Brand Logo Carousel */}
-        <div>
+        <div className="mb-6">
           <BrandLogoCarousel onVisibilityChange={(isVisible) => setLogoCarouselVisible(isVisible)} />
         </div>
 
         <FeaturesSection logoCarouselVisible={logoCarouselVisible} />
 
-        {/* See How Miznet Works Button (moved here) */}
-        <div className="flex justify-center -mt-6 mb-2"> {/* reduced margin-top and margin-bottom */}
+        {/* See How Miznet Works Button */}
+        <div className="flex justify-center mb-12">
           <AnimatedButton href="/miznet" small>
             See How Miznet Works
           </AnimatedButton>
         </div>
 
         {/* Benefits Section + Performance Analytics */}
-        <section className="w-full flex flex-col md:flex-row items-center justify-center gap-0 my-0 mt-2"> {/* add mt-2 for slight separation, gap-0 for no gap */}
-          {/* BenefitsSection on left, BenfitChart on right (desktop); stacked on mobile */}
-          <div className="w-full md:w-2/3 flex justify-center md:mr-2"> {/* add md:mr-2 for a small gap on desktop */}
+        <section className="w-full flex flex-col md:flex-row items-start justify-center gap-6 mb-12">
+          <div className="w-full md:w-3/5">
             <BenefitsSection />
           </div>
-          <div className="w-full flex justify-center md:max-w-xl px-2 md:px-4"> {/* reduce px */}
+          <div className="w-full md:w-2/5">
             <BenfitChart />
           </div>
         </section>
-        <div className="w-full flex justify-center md:max-w-4xl px-1 md:px-2 mt-1 mb-0 mx-auto"> {/* increased max-width for metrics */}
+        <div className="w-full max-w-4xl mx-auto mb-12">
           <BenefitMetrics />
         </div>
 
@@ -98,7 +114,7 @@ export default function Home() {
 
 
         {/* Footer */}
-        <footer className="bg-[#111827]/80 backdrop-blur-sm text-[#F9FAFB] py-8 px-6 mt-auto border-t border-white/10">
+        <footer className="bg-[#000]/80 backdrop-blur-sm text-[#F9FAFB] py-8 px-6 mt-auto border-t border-white/10">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-[#F9FAFB] font-bold">© 2025 Miznet AI</div>
             <div className="flex gap-6 text-[#F9FAFB] text-sm">
