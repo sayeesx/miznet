@@ -23,11 +23,9 @@ const BrandLogoCarousel: React.FC<BrandLogoCarouselProps> = ({ onVisibilityChang
   const repeatedLogos = [...logos, ...logos, ...logos, ...logos]
   const [showTagline, setShowTagline] = useState(false)
   const [showCarousel, setShowCarousel] = useState(false)
-  const scrollTimeout = React.useRef<NodeJS.Timeout>()
+  const [lastScrollY, setLastScrollY] = useState(0)
 
-  useEffect(() => {
-    let lastScrollY = window.scrollY
-    
+  useEffect(() => {    
     const handleScroll = () => {
       const currentScrollY = window.scrollY
       
@@ -52,7 +50,7 @@ const BrandLogoCarousel: React.FC<BrandLogoCarouselProps> = ({ onVisibilityChang
         setShowCarousel(false)
       }
       
-      lastScrollY = currentScrollY
+      setLastScrollY(currentScrollY)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })

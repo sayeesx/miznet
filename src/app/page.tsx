@@ -111,26 +111,6 @@ export default function Home() {
 
         <AboutSection />
 
-
-
-        {/* Footer */}
-        <footer className="bg-[#000]/80 backdrop-blur-sm text-[#F9FAFB] py-8 px-6 mt-auto border-t border-white/10">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="text-[#F9FAFB] font-bold">© 2025 Miznet AI</div>
-            <div className="flex gap-6 text-[#F9FAFB] text-sm">
-              <a href="#" className="hover:underline font-semibold transition-colors duration-200 hover:text-[#fc0404]">
-                Terms
-              </a>
-              <a href="#" className="hover:underline font-semibold transition-colors duration-200 hover:text-[#fc0404]">
-                Privacy
-              </a>
-              <a href="#" className="hover:underline font-semibold transition-colors duration-200 hover:text-[#fc0404]">
-                Contact
-              </a>
-            </div>
-          </div>
-        </footer>
-
         {/* Chatbot Button - Now with higher z-index and better visibility */}
         <ChatbotButton onClick={() => setChatOpen((v) => !v)} />
 
