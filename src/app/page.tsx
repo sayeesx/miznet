@@ -39,15 +39,15 @@ export default function Home() {
         <section className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto pt-16 pb-16 px-6 gap-12 w-full mt-8 md:mt-0">
           {/* Left */}
           <div className="flex-1 flex flex-col items-start justify-center">
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-[#111827] mb-6 leading-tight max-w-2xl drop-shadow-sm">
+            <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight max-w-2xl">
               Track Every Product from Warehouse to Checkout —{" "}
-              <span className="text-[#fc0404] font-extrabold">Automatically</span>
+              <span className="text-[#fc0404]">Automatically</span>
             </h1>
-            <p className="text-lg text-gray-500 max-w-xl mb-8 font-medium">
+            <p className="text-xl text-gray-600 max-w-xl mb-8">
               <span className="font-bold text-[#fc0404]">Miznet AI</span> uses blockchain and machine learning to
               eliminate stockouts, manage expiry, and restock shelves without human intervention.
             </p>
-            <ContactButton className="mt-6 md:mt-2 self-start ml-0" />
+            <ContactButton className="mt-6 md:mt-2 self-start ml-0" text="Book a Demo" />
           </div>
           {/* Right */}
           <div className="flex-1 flex items-center justify-center hidden sm:flex">

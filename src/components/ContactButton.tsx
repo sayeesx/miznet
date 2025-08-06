@@ -9,7 +9,7 @@ export default function ContactButton({ className = "", ...props }) {
       onClick={() => router.push('/contact')}
       {...props}
     >
-      <span className="relative z-10">Contact Us</span>
+      <span className="relative z-10">Book a Demo</span>
       <svg
         className="w-7 h-7 ml-1 group-hover:rotate-90 ease-linear duration-300 rounded-full border border-[#fc0404] group-hover:!border-white p-1 rotate-45 bg-white group-hover:!bg-[#fc0404] relative z-20"
         viewBox="0 0 16 19"
