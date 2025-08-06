@@ -22,6 +22,7 @@ import AnimatedButton from "../components/AnimatedButton";
 
 export default function Home() {
   const [chatOpen, setChatOpen] = React.useState(false)
+  const [logoCarouselVisible, setLogoCarouselVisible] = React.useState(false)
 
   React.useEffect(() => {
     // AOS.init({
@@ -66,10 +67,10 @@ export default function Home() {
 
         {/* Brand Logo Carousel */}
         <div>
-          <BrandLogoCarousel />
+          <BrandLogoCarousel onVisibilityChange={(isVisible) => setLogoCarouselVisible(isVisible)} />
         </div>
 
-        <FeaturesSection />
+        <FeaturesSection logoCarouselVisible={logoCarouselVisible} />
 
         {/* See How Miznet Works Button (moved here) */}
         <div className="flex justify-center -mt-6 mb-2"> {/* reduced margin-top and margin-bottom */}

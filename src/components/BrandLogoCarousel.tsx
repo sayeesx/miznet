@@ -14,29 +14,53 @@ const logos = [
   { name: "IKEA", src: "/brandlogos/ikea.svg" }, // ✅ Added
 ]
 
-const BrandLogoCarousel: React.FC = () => {
+interface BrandLogoCarouselProps {
+  onVisibilityChange?: (isVisible: boolean) => void;
+}
+
+const BrandLogoCarousel: React.FC<BrandLogoCarouselProps> = ({ onVisibilityChange }) => {
   // Repeat logos enough times for seamless loop
   const repeatedLogos = [...logos, ...logos, ...logos, ...logos]
   const [showTagline, setShowTagline] = useState(false)
   const [showCarousel, setShowCarousel] = useState(false)
+  const scrollTimeout = React.useRef<NodeJS.Timeout>()
 
   useEffect(() => {
+    let lastScrollY = window.scrollY
+    
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      const currentScrollY = window.scrollY
+      
+      // Get the features section position
+      const featuresSection = document.getElementById('features')
+      const featuresSectionTop = featuresSection?.getBoundingClientRect().top ?? 0
+      const featuresSectionOffset = featuresSectionTop + window.scrollY
+      const featuresSectionBottom = featuresSectionOffset + (featuresSection?.offsetHeight ?? 0)
+      
+      // Check if we're in the features section range
+      const isInFeaturesSection = currentScrollY >= featuresSectionOffset - 200 && 
+                                 currentScrollY <= featuresSectionBottom + 200
+
+      if (!isInFeaturesSection && currentScrollY > 50) {
+        // Show when outside features section and scrolled past 50px
         setShowTagline(true)
         // Delay showing carousel for fade-up effect after tagline
         setTimeout(() => setShowCarousel(true), 400)
       } else {
+        // Hide when in features section range or at the very top
         setShowTagline(false)
         setShowCarousel(false)
       }
+      
+      lastScrollY = currentScrollY
     }
-    window.addEventListener('scroll', handleScroll)
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
-    <div className="w-full bg-white py-6">
+    <div className="w-full bg-white py-6 mb-20">
       <div className="flex flex-col items-center justify-center w-full">
         <h3
           className={`text-center text-base md:text-lg font-semibold text-black mb-4 transition-all duration-700 ease-out opacity-0 translate-y-6 ${showTagline ? 'fade-up-active' : ''}`}
@@ -105,6 +129,7 @@ const BrandLogoCarousel: React.FC = () => {
         h3, .relative {
           opacity: 0;
           transform: translateY(24px);
+          transition: opacity 0.7s ease-out, transform 0.7s ease-out;
         }
       `}</style>
     </div>
