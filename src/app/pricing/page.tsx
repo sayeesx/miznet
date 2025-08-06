@@ -13,7 +13,7 @@ export default function PricingPage() {
           Custom Pricing for Your Business
         </h1>
         <p className="text-lg md:text-xl text-gray-600 mb-8">
-          We offer tailored solutions based on your business needs. Our pricing is customized to match your organization's scale, requirements, and goals.
+          We offer tailored solutions based on your business needs. Our pricing is customized to match your organization&apos;s scale, requirements, and goals.
         </p>
         <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-100 mb-8 w-full max-w-2xl">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">Why Custom Pricing?</h2>

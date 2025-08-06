@@ -23,7 +23,6 @@ const BrandLogoCarousel: React.FC<BrandLogoCarouselProps> = ({ onVisibilityChang
   const repeatedLogos = [...logos, ...logos, ...logos, ...logos]
   const [showTagline, setShowTagline] = useState(false)
   const [showCarousel, setShowCarousel] = useState(false)
-  const [lastScrollY, setLastScrollY] = useState(0)
 
   useEffect(() => {    
     const handleScroll = () => {
@@ -44,13 +43,13 @@ const BrandLogoCarousel: React.FC<BrandLogoCarouselProps> = ({ onVisibilityChang
         setShowTagline(true)
         // Delay showing carousel for fade-up effect after tagline
         setTimeout(() => setShowCarousel(true), 400)
+        onVisibilityChange?.(true);
       } else {
         // Hide when in features section range or at the very top
         setShowTagline(false)
         setShowCarousel(false)
+        onVisibilityChange?.(false);
       }
-      
-      setLastScrollY(currentScrollY)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
