@@ -8,7 +8,9 @@ const BenefitMetrics: React.FC = () => {
   React.useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+        }
       },
       { threshold: 0.1 }
     );
@@ -19,7 +21,7 @@ const BenefitMetrics: React.FC = () => {
     return () => {
       if (element) observer.unobserve(element);
     };
-  }, []);
+  }, [isVisible]);
 
   return (
     <div 
@@ -29,84 +31,59 @@ const BenefitMetrics: React.FC = () => {
       }`}
     >
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 w-full">
-        <StyledCard>
-          <div className="card">
-            <div className="bg" />
-            <div className="blob" />
-            <div className="content">
-              <div className="font-semibold text-red-600 text-[14px] md:text-2xl lg:text-3xl block">
-                <span><NumberTicker value={12} />%</span>
+        {[12, 25, 18, 40].map((value, index) => (
+          <StyledCard key={index} $isVisible={isVisible}>
+            <div className="card">
+              <div className="bg" />
+              <div className="blob" />
+              <div className="content">
+                <div className="font-semibold text-red-600 text-[14px] md:text-2xl lg:text-3xl block">
+                  <span><NumberTicker value={value} />%</span>
+                </div>
+                <span className="block text-[10px] md:text-sm mt-1">
+                  {index === 0 && 'increase in total sales'}
+                  {index === 1 && 'fewer stockouts'}
+                  {index === 2 && 'fewer expired items'}
+                  {index === 3 && 'hours saved per month'}
+                </span>
               </div>
-              <span className="block text-[10px] md:text-sm mt-1">increase in total sales</span>
             </div>
-          </div>
-        </StyledCard>
-
-        <StyledCard>
-          <div className="card">
-            <div className="bg" />
-            <div className="blob" />
-            <div className="content">
-              <div className="font-semibold text-red-600 text-[14px] md:text-2xl lg:text-3xl block">
-                <span><NumberTicker value={25} />%</span>
-              </div>
-              <span className="block text-[10px] md:text-sm mt-1">fewer stockouts</span>
-            </div>
-          </div>
-        </StyledCard>
-
-        <StyledCard>
-          <div className="card">
-            <div className="bg" />
-            <div className="blob" />
-            <div className="content">
-              <div className="font-semibold text-red-600 text-[14px] md:text-2xl lg:text-3xl block">
-                <span><NumberTicker value={18} />%</span>
-              </div>
-              <span className="block text-[10px] md:text-sm mt-1">fewer expired items</span>
-            </div>
-          </div>
-        </StyledCard>
-
-        <StyledCard>
-          <div className="card">
-            <div className="bg" />
-            <div className="blob" />
-            <div className="content">
-              <div className="font-semibold text-red-600 text-[14px] md:text-2xl lg:text-3xl block">
-                <NumberTicker value={40} />%
-              </div>
-              <span className="block text-[10px] md:text-sm mt-1">hours saved per month</span>
-            </div>
-          </div>
-        </StyledCard>
+          </StyledCard>
+        ))}
       </div>
     </div>
   );
 };
 
-const StyledCard = styled.div`
+const StyledCard = styled.div<{ $isVisible: boolean }>`
   .card {
     position: relative;
     width: 100%;
     aspect-ratio: 1;
-    @media (min-width: 768px) {
-      aspect-ratio: auto;
-      height: 180px;
-    }
     border-radius: 10px;
-    @media (min-width: 768px) {
-      border-radius: 14px;
-    }
     z-index: 1;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 10px 10px 30px #bebebe, -10px -10px 30px #ffffff;
+    
+    /* Initial state - no border */
+    box-shadow: none;
+    
+    /* Trigger border animation when visible */
+    ${props => props.$isVisible && `
+      animation: borderPulse 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    `}
+    
     @media (min-width: 768px) {
-      box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+      aspect-ratio: auto;
+      height: 180px;
+      border-radius: 14px;
+      
+      ${props => props.$isVisible && `
+        animation: borderPulseLarge 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      `}
     }
   }
 
@@ -123,7 +100,7 @@ const StyledCard = styled.div`
     right: 5px;
     bottom: 5px;
     z-index: 2;
-    background: rgba(255, 255, 255, .95);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(24px);
     border-radius: 10px;
     overflow: hidden;
@@ -141,30 +118,75 @@ const StyledCard = styled.div`
     background-color: #ff0000;
     opacity: 0.5;
     filter: blur(12px);
-    animation: blob-bounce 5s infinite ease;
+    animation: ${props => props.$isVisible ? 'blobBounce 4s cubic-bezier(0.4, 0, 0.2, 1) forwards' : 'none'};
   }
 
-  @keyframes blob-bounce {
+  /* Border animation keyframes for mobile */
+  @keyframes borderPulse {
+    0% {
+      box-shadow: none;
+    }
+    30% {
+      box-shadow: 
+        10px 10px 30px #bebebe, 
+        -10px -10px 30px #ffffff;
+    }
+    70% {
+      box-shadow: 
+        10px 10px 30px #bebebe, 
+        -10px -10px 30px #ffffff;
+    }
+    100% {
+      box-shadow: none;
+    }
+  }
+
+  /* Border animation keyframes for desktop */
+  @keyframes borderPulseLarge {
+    0% {
+      box-shadow: none;
+    }
+    30% {
+      box-shadow: 
+        20px 20px 60px #bebebe, 
+        -20px -20px 60px #ffffff;
+    }
+    70% {
+      box-shadow: 
+        20px 20px 60px #bebebe, 
+        -20px -20px 60px #ffffff;
+    }
+    100% {
+      box-shadow: none;
+    }
+  }
+
+  /* Blob animation keyframes */
+  @keyframes blobBounce {
     0% {
       transform: translate(-100%, -100%) translate3d(0, 0, 0);
+      opacity: 0.5;
     }
-
-    25% {
+    20% {
       transform: translate(-100%, -100%) translate3d(100%, 0, 0);
+      opacity: 0.5;
     }
-
-    50% {
+    40% {
       transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
+      opacity: 0.5;
     }
-
-    75% {
+    60% {
       transform: translate(-100%, -100%) translate3d(0, 100%, 0);
+      opacity: 0.4;
     }
-
-    100% {
+    80% {
       transform: translate(-100%, -100%) translate3d(0, 0, 0);
+      opacity: 0.2;
     }
-  }
+    100% {
+      transform: translate(-100%, -100%) translate3d(50%, 50%, 0);
+      opacity: 0;
+    }
 `;
 
-export default BenefitMetrics; 
+export default BenefitMetrics;

@@ -41,7 +41,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ logoCarouselVisible }
   return (
     <section 
       id="features" 
-      className={`py-20 px-6 bg-white transition-all duration-1000 ease-out ${
+      className={`py-12 px-6 bg-white transition-all duration-1000 ease-out ${
         logoCarouselVisible ? 'opacity-0 translate-y-10 pointer-events-none' : 'opacity-100 translate-y-0'
       }`} 
       ref={sectionRef}>

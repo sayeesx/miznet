@@ -83,14 +83,14 @@ export default function Home() {
         </section>
 
         {/* Brand Logo Carousel */}
-        <div className="mb-6">
+        <div className="mb-2">
           <BrandLogoCarousel onVisibilityChange={(isVisible) => setLogoCarouselVisible(isVisible)} />
         </div>
-
+        
         <FeaturesSection logoCarouselVisible={logoCarouselVisible} />
 
         {/* See How Miznet Works Button */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mt-8 mb-12">
           <AnimatedButton href="/miznet" small>
             See How Miznet Works
           </AnimatedButton>

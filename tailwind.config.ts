@@ -22,9 +22,14 @@ const config: Config = {
           '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
           '100%': { transform: 'translate(0px, 0px) scale(1)' },
         },
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(calc(-50%))' }
+        }
       },
       animation: {
         blob: "blob 20s ease-in-out infinite",
+        'infinite-scroll': 'infinite-scroll 30s linear infinite',
       },
     },
   },

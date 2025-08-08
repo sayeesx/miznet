@@ -2,24 +2,44 @@
 
 export default function ChatbotButton({ onClick }: { onClick?: () => void }) {
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 right-6 z-50 group flex items-center gap-2">
+      <div className="bg-white border border-[#fc0404] text-[#fc0404] px-2.5 py-1.5 rounded-md shadow-[0_2px_4px_rgba(0,0,0,0.08)] transition-all duration-300 opacity-0 group-hover:opacity-100 text-xs font-medium whitespace-nowrap relative scale-90 origin-right">
+        Chat with us
+        <div className="absolute top-1/2 -right-[5px] transform -translate-y-1/2 w-[5px] h-[5px] bg-white border-r border-t border-[#fc0404] rotate-45"></div>
+      </div>
       <button
         onClick={onClick}
-        className="group relative flex items-center justify-center w-[45px] h-[45px] rounded-full backdrop-blur-md bg-[#F9FAFB]/90 text-[#111827] font-semibold hover:w-[125px] hover:rounded-[40px] focus:ring-2 focus:ring-[#fc0404] focus:outline-none transition-all duration-300 shadow-sm active:translate-x-[2px] active:translate-y-[2px] overflow-hidden"
+        className="relative w-[50px] h-[50px] rounded-full bg-gradient-to-br from-[#fc0404] to-[#fc0404]/80 flex items-center justify-center cursor-pointer shadow-lg hover:shadow-xl transition-shadow"
         aria-label="Open Chatbot"
       >
-        {/* Icon container */}
-        <div className="flex items-center justify-center transition-all duration-300 group-hover:absolute group-hover:left-0 group-hover:w-[30%] group-hover:pl-5 group-hover:h-full">
-          <svg className="w-5 h-5 text-[#fc0404]" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
-          </svg>
-        </div>
-
-        {/* Text container */}
-        <div className="absolute right-0 top-0 w-0 h-full opacity-0 text-[#111827] text-lg font-semibold transition-all duration-300 group-hover:opacity-100 group-hover:w-[70%] flex items-center justify-center group-hover:pr-[10px]">
-          Chat
-        </div>
+        {/* Modern Chatbot Icon */}
+        <svg 
+          className="w-6 h-6 text-white transform transition-transform duration-700 group-hover:animate-[jello_0.9s_both]" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="2"
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        >
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          <path d="M8 9h.01" />
+          <path d="M12 9h.01" />
+          <path d="M16 9h.01" />
+        </svg>
       </button>
+
+      <style jsx>{`
+        @keyframes jello {
+          0% { transform: scale3d(1, 1, 1); }
+          30% { transform: scale3d(0.75, 1.25, 1); }
+          40% { transform: scale3d(1.25, 0.75, 1); }
+          50% { transform: scale3d(0.85, 1.15, 1); }
+          65% { transform: scale3d(1.05, 0.95, 1); }
+          75% { transform: scale3d(0.95, 1.05, 1); }
+          100% { transform: scale3d(1, 1, 1); }
+        }
+      `}</style>
     </div>
   )
 }
