@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-import AnimatedButton from "./AnimatedButton"
 import Lottie from "lottie-react"
 import { useInView } from 'react-intersection-observer'
 import immutableTrackingLottie from "../animations/immutabletracking.json"
@@ -31,8 +30,6 @@ interface FeaturesSectionProps {
 }
 
 const FeaturesSection: React.FC<FeaturesSectionProps> = ({ logoCarouselVisible }) => {
-  // Only fade in on first scroll down, not when returning from bottom
-  const [hasAnimated, setHasAnimated] = React.useState(false);
   // Show features as soon as logoCarouselVisible is false, and keep visible after first show
   const [hasShown, setHasShown] = React.useState(false);
   React.useEffect(() => {

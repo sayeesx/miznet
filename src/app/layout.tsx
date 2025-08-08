@@ -1,8 +1,8 @@
 import './globals.css'
 import { Manrope } from 'next/font/google'
 import React, { ReactNode } from 'react'
-import { Analytics } from "@vercel/analytics/next"
 import { NavbarDemo } from '../components/ui/resizable-navbar'
+import { Analytics } from '@vercel/analytics/react'
 
 const manrope = Manrope({ subsets: ['latin'], display: 'swap' })
 
@@ -30,6 +30,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={manrope.className}>
         <NavbarDemo />
         {children}
+        <Analytics />
       </body>
     </html>
   );
