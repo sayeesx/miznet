@@ -13,10 +13,7 @@ import BenefitsSection from "../components/benfitcomponent/BenefitsSection";
 import BenefitMetrics from "../components/benfitcomponent/BenefitMetrics";
 import FeaturesSection from "../components/FeaturesSection";
 import AboutSection from "../components/AboutSection";
-// AOS imports
-// import AOS from 'aos'
-// import 'aos/dist/aos.css'
-import AnimatedButton from "../components/AnimatedButton";
+import SparkleButton from "../components/SparkleButton";
 
 
 
@@ -24,25 +21,68 @@ export default function Home() {
   const [chatOpen, setChatOpen] = React.useState(false)
   const [logoCarouselVisible, setLogoCarouselVisible] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(true)
+  const [showHeroSection, setShowHeroSection] = React.useState(false)
+  const [visibleSections, setVisibleSections] = React.useState(new Set<string>())
 
   React.useEffect(() => {
     // Simulate checking if page is ready
     const checkPageReady = () => {
       if (document.readyState === 'complete') {
-        setTimeout(() => setIsLoading(false), 500) // Small delay to ensure smooth transition
+        setTimeout(() => {
+          setIsLoading(false)
+          setShowHeroSection(true) // Show hero section immediately after loading
+        }, 500)
       } else {
         window.addEventListener('load', () => {
-          setTimeout(() => setIsLoading(false), 500)
+          setTimeout(() => {
+            setIsLoading(false)
+            setShowHeroSection(true)
+          }, 500)
         })
       }
     }
     checkPageReady()
-    // AOS.init({
-    //   duration: 700,
-    //   once: true,
-    //   offset: 60,
-    //   easing: 'ease-out-cubic',
-    // })
+
+    // Handle scroll-based animations for all sections
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight
+      
+      // Define sections in order from top to bottom
+      const sections = [
+        'hero-section',
+        'brand-carousel-section',
+        'features-section',
+        'benefits-section',
+        'about-section'
+      ]
+
+      // Calculate visibility based on scroll position
+      const isVisible = (element: Element | null) => {
+        if (!element) return false
+        const rect = element.getBoundingClientRect()
+        return rect.top <= windowHeight * 0.85 // Trigger slightly earlier
+      }
+
+      // Check each section in order
+      setVisibleSections(prevVisible => {
+        const newVisible = new Set(prevVisible)
+        
+        for (const sectionId of sections) {
+          const element = document.getElementById(sectionId)
+          if (element && isVisible(element)) {
+            newVisible.add(sectionId)
+          }
+        }
+        
+        return newVisible
+      })
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    // Trigger initial check
+    setTimeout(handleScroll, 100) // Small delay to ensure DOM is ready
+    
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
@@ -54,7 +94,7 @@ export default function Home() {
       ) : null}
       <div className={`bg-white min-h-screen flex flex-col font-[Manrope,sans-serif] text-[#111827] ${isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-500'}`}>
         {/* Hero Section */}
-        <section className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto pt-16 pb-16 px-6 gap-12 w-full mt-8 md:mt-0">
+        <section id="hero-section" className={`flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto pt-16 pb-16 px-6 gap-12 w-full mt-8 md:mt-0 transition-all duration-1000 ease-out ${showHeroSection ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Left */}
           <div className="flex-1 flex flex-col items-start justify-center">
             <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight max-w-2xl">
@@ -82,22 +122,25 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Brand Logo Carousel */}
-        <div className="mb-2">
-          <BrandLogoCarousel onVisibilityChange={(isVisible) => setLogoCarouselVisible(isVisible)} />
+        {/* Brand Logo Carousel - hidden at top, fade in on scroll */}
+        <div id="brand-carousel-section" className={`mb-2 transition-all duration-1000 ease-out ${visibleSections.has('brand-carousel-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          {visibleSections.has('brand-carousel-section') && (
+            <BrandLogoCarousel onVisibilityChange={(isVisible) => setLogoCarouselVisible(isVisible)} />
+          )}
         </div>
-        
-        <FeaturesSection logoCarouselVisible={logoCarouselVisible} />
 
-        {/* See How Miznet Works Button */}
-        <div className="flex justify-center mt-8 mb-12">
-          <AnimatedButton href="/miznet" small>
-            See How Miznet Works
-          </AnimatedButton>
+        {/* Features Section */}
+        <div id="features-section" className={`transition-all duration-1000 ease-out ${visibleSections.has('features-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <FeaturesSection logoCarouselVisible={logoCarouselVisible} />
+          
+          {/* See How Miznet Works Button */}
+          <div className="flex justify-center mt-8 mb-12">
+            <SparkleButton href="/miznet" className="text-sm px-4 py-2" />
+          </div>
         </div>
 
         {/* Benefits Section + Performance Analytics */}
-        <section className="w-full flex flex-col md:flex-row items-start justify-center gap-6 mb-12">
+        <section id="benefits-section" className={`w-full flex flex-col md:flex-row items-start justify-center gap-6 mb-12 transition-all duration-1000 ease-out ${visibleSections.has('benefits-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="w-full md:w-3/5">
             <BenefitsSection />
           </div>
@@ -105,11 +148,14 @@ export default function Home() {
             <BenfitChart />
           </div>
         </section>
-        <div className="w-full max-w-4xl mx-auto mb-12">
+        <div className={`w-full max-w-4xl mx-auto mb-12 transition-all duration-1000 ease-out ${visibleSections.has('benefits-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <BenefitMetrics />
         </div>
 
-        <AboutSection />
+        {/* About Section */}
+        <div id="about-section" className={`transition-all duration-1000 ease-out ${visibleSections.has('about-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <AboutSection />
+        </div>
 
         {/* Chatbot Button - Now with higher z-index and better visibility */}
         <ChatbotButton onClick={() => setChatOpen((v) => !v)} />

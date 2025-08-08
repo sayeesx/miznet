@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import AnimatedButton from "./AnimatedButton"
 import Lottie from "lottie-react"
 import { useInView } from 'react-intersection-observer'
 import immutableTrackingLottie from "../animations/immutabletracking.json"
@@ -30,30 +31,30 @@ interface FeaturesSectionProps {
 }
 
 const FeaturesSection: React.FC<FeaturesSectionProps> = ({ logoCarouselVisible }) => {
-  const { ref: sectionRef, inView: sectionInView } = useInView({
-    triggerOnce: false,
-    threshold: 0.1
-  });
-
-  // Only show features when carousel is hidden and section is in view
-  const shouldShow = !logoCarouselVisible && sectionInView;
+  // Only fade in on first scroll down, not when returning from bottom
+  const [hasAnimated, setHasAnimated] = React.useState(false);
+  // Show features as soon as logoCarouselVisible is false, and keep visible after first show
+  const [hasShown, setHasShown] = React.useState(false);
+  React.useEffect(() => {
+    if (!logoCarouselVisible) setHasShown(true);
+  }, [logoCarouselVisible]);
+  const shouldShow = hasShown;
 
   return (
     <section 
       id="features" 
-      className={`py-12 px-6 bg-white transition-all duration-1000 ease-out ${
-        logoCarouselVisible ? 'opacity-0 translate-y-10 pointer-events-none' : 'opacity-100 translate-y-0'
-      }`} 
-      ref={sectionRef}>
+      className={`py-12 px-6 bg-white transition-all duration-500 ease-out ${
+        shouldShow ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none select-none'
+      }`}>
       <div className="max-w-7xl mx-auto">
         <h2 
           className={`text-[1.5rem] md:text-[2.1rem] font-bold text-gray-900 mb-8 text-left whitespace-nowrap transform transition-all duration-1000 ease-out ${
             shouldShow ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          Why Choose Miznet?
+          Why Choose <span style={{ color: '#fc0404' }}>Miznet</span>?
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {/* Feature 1 (AI-Based Restocking) */}
           <div 
             className={`group flex flex-row md:flex-col items-start md:items-center bg-white rounded-2xl p-3 md:p-6 border border-gray-100 transform transition-all duration-1000 ease-out delay-[400ms] ${
@@ -76,7 +77,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ logoCarouselVisible }
           {/* Feature 2 (Immutable Tracking) */}
           <div 
             className={`group flex flex-row md:flex-col items-start md:items-center bg-white rounded-2xl p-3 md:p-6 border border-gray-100 transform transition-all duration-1000 ease-out delay-[800ms] ${
-              sectionInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              shouldShow ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >
             <div className="p-2 md:p-4 mb-0 md:mb-4 flex-shrink-0" style={{ width: '80px', height: '80px', maxWidth: '80px' }}>
@@ -95,7 +96,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ logoCarouselVisible }
           {/* Feature 3 (No Manual Workers Needed) */}
           <div 
             className={`group flex flex-row md:flex-col items-start md:items-center bg-white rounded-2xl p-3 md:p-6 border border-gray-100 transform transition-all duration-1000 ease-out delay-[1200ms] ${
-              sectionInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              shouldShow ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >
             <div className="p-2 md:p-4 mb-0 md:mb-4 flex-shrink-0" style={{ width: '80px', height: '80px', maxWidth: '80px' }}>

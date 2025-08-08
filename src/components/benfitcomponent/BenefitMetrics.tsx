@@ -36,6 +36,7 @@ const BenefitMetrics: React.FC = () => {
             <div className="card">
               <div className="bg" />
               <div className="blob" />
+              <div className="mini-blob" />
               <div className="content">
                 <div className="font-semibold text-red-600 text-[14px] md:text-2xl lg:text-3xl block">
                   <span><NumberTicker value={value} />%</span>
@@ -68,22 +69,10 @@ const StyledCard = styled.div<{ $isVisible: boolean }>`
     align-items: center;
     justify-content: center;
     
-    /* Initial state - no border */
-    box-shadow: none;
-    
-    /* Trigger border animation when visible */
-    ${props => props.$isVisible && `
-      animation: borderPulse 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    `}
-    
     @media (min-width: 768px) {
       aspect-ratio: auto;
       height: 180px;
       border-radius: 14px;
-      
-      ${props => props.$isVisible && `
-        animation: borderPulseLarge 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-      `}
     }
   }
 
@@ -118,7 +107,23 @@ const StyledCard = styled.div<{ $isVisible: boolean }>`
     background-color: #ff0000;
     opacity: 0.5;
     filter: blur(12px);
-    animation: ${props => props.$isVisible ? 'blobBounce 4s cubic-bezier(0.4, 0, 0.2, 1) forwards' : 'none'};
+    animation: ${props => props.$isVisible ? 'blobOrbitAndFade 3.5s ease-in-out forwards' : 'none'};
+    transform: translate(-50%, -50%) translate(-70px, -70px);
+  }
+
+  .mini-blob {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ff0000;
+    opacity: 0;
+    filter: blur(10px);
+    transform: translate(-50%, -50%);
+    animation: ${props => props.$isVisible ? 'miniBlobAppear 1s ease-in forwards 3s, miniBlobPulse 3s ease-in-out infinite 4s' : 'none'};
   }
 
   /* Border animation keyframes for mobile */
@@ -162,31 +167,58 @@ const StyledCard = styled.div<{ $isVisible: boolean }>`
   }
 
   /* Blob animation keyframes */
-  @keyframes blobBounce {
+  @keyframes blobOrbitAndFade {
     0% {
-      transform: translate(-100%, -100%) translate3d(0, 0, 0);
+      transform: translate(-50%, -50%) translate(-70px, -70px);
       opacity: 0.5;
     }
     20% {
-      transform: translate(-100%, -100%) translate3d(100%, 0, 0);
+      transform: translate(-50%, -50%) translate(70px, -70px);
       opacity: 0.5;
     }
     40% {
-      transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
+      transform: translate(-50%, -50%) translate(70px, 70px);
       opacity: 0.5;
     }
     60% {
-      transform: translate(-100%, -100%) translate3d(0, 100%, 0);
+      transform: translate(-50%, -50%) translate(-70px, 70px);
       opacity: 0.4;
     }
     80% {
-      transform: translate(-100%, -100%) translate3d(0, 0, 0);
-      opacity: 0.2;
+      transform: translate(-50%, -50%) translate(-70px, -70px);
+      opacity: 0.3;
     }
     100% {
-      transform: translate(-100%, -100%) translate3d(50%, 50%, 0);
+      transform: translate(-50%, -50%) translate(-70px, -70px);
       opacity: 0;
     }
+  }
+
+  @keyframes miniBlobAppear {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+      opacity: 0.35;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  @keyframes miniBlobPulse {
+    0% {
+      opacity: 0.35;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      opacity: 0.25;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    100% {
+      opacity: 0.35;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
 `;
 
 export default BenefitMetrics;

@@ -25,8 +25,8 @@ const BrandLogoCarousel: React.FC<BrandLogoCarouselProps> = ({ onVisibilityChang
   const [showCarousel, setShowCarousel] = useState(false)
   const { ref, inView } = useInView({
     threshold: 0.1,
-    triggerOnce: true,
-    rootMargin: '50px'
+    triggerOnce: false,
+    rootMargin: '0px 0px'
   });
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const BrandLogoCarousel: React.FC<BrandLogoCarouselProps> = ({ onVisibilityChang
       setShowTagline(true);
       setTimeout(() => {
         setShowCarousel(true);
-        onVisibilityChange?.(false); // Show features when carousel is visible
+        onVisibilityChange?.(false); // Hide features when carousel is visible
       }, 400);
     } else {
       setShowTagline(false);
@@ -47,12 +47,12 @@ const BrandLogoCarousel: React.FC<BrandLogoCarouselProps> = ({ onVisibilityChang
     <div className="w-full bg-white py-6" ref={ref}>
       <div className="flex flex-col items-center justify-center w-full">
         <h3
-          className={`text-center text-base md:text-lg font-semibold text-black mb-4 transition-all duration-700 ease-out ${showTagline ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+          className={`text-center text-base md:text-lg font-semibold text-black mb-4 transition-all duration-1000 ease-out ${showTagline ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
         >
           Designed to Scale With the World&apos;s Largest Retailers
         </h3>
 
-        <div className={`relative w-full flex flex-col items-center justify-center overflow-x-hidden transition-all duration-700 ease-out ${showCarousel ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div className={`relative w-full flex flex-col items-center justify-center overflow-x-hidden transition-all duration-1000 ease-out ${showCarousel ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Desktop: Static row */}
           <div className="hidden sm:flex flex-wrap justify-center items-center gap-10 w-full">
             {logos.map((logo, idx) => (
