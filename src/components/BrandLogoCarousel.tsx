@@ -15,44 +15,19 @@ const logos = [
   { name: "IKEA", src: "/brandlogos/ikea.svg" }
 ]
 
-interface BrandLogoCarouselProps {
-  onVisibilityChange?: (isVisible: boolean) => void;
-}
-
-const BrandLogoCarousel: React.FC<BrandLogoCarouselProps> = ({ onVisibilityChange }) => {
+const BrandLogoCarousel: React.FC = () => {
   const repeatedLogos = [...logos, ...logos, ...logos, ...logos]
-  const [showTagline, setShowTagline] = useState(false)
-  const [showCarousel, setShowCarousel] = useState(false)
-  const { ref, inView } = useInView({
-    threshold: 0.1,
-    triggerOnce: false,
-    rootMargin: '0px 0px'
-  });
-
-  useEffect(() => {
-    if (inView) {
-      setShowTagline(true);
-      setTimeout(() => {
-        setShowCarousel(true);
-        onVisibilityChange?.(false); // Hide features when carousel is visible
-      }, 400);
-    } else {
-      setShowTagline(false);
-      setShowCarousel(false);
-      onVisibilityChange?.(true);
-    }
-  }, [inView, onVisibilityChange]);
 
   return (
-    <div className="w-full bg-white py-6" ref={ref}>
+    <div className="w-full bg-white py-6">
       <div className="flex flex-col items-center justify-center w-full">
         <h3
-          className={`text-center text-base md:text-lg font-semibold text-black mb-4 transition-all duration-1000 ease-out ${showTagline ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+          className="text-center text-base md:text-lg font-semibold text-black mb-4"
         >
           Designed to Scale With the World&apos;s Largest Retailers
         </h3>
 
-        <div className={`relative w-full flex flex-col items-center justify-center overflow-x-hidden transition-all duration-1000 ease-out ${showCarousel ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="relative w-full flex flex-col items-center justify-center overflow-x-hidden">
           {/* Desktop: Static row */}
           <div className="hidden sm:flex flex-wrap justify-center items-center gap-10 w-full">
             {logos.map((logo, idx) => (
@@ -73,7 +48,7 @@ const BrandLogoCarousel: React.FC<BrandLogoCarouselProps> = ({ onVisibilityChang
 
           {/* Mobile: Smooth infinite carousel */}
           <div className="flex sm:hidden overflow-hidden relative w-full">
-            <div 
+            <div
               className="flex gap-8 animate-infinite-scroll"
               style={{
                 width: "max-content",
