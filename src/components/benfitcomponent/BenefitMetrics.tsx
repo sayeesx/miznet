@@ -3,36 +3,14 @@ import { NumberTicker } from '../ui/NumberTicker';
 import styled from 'styled-components';
 
 const BenefitMetrics: React.FC = () => {
-  const [isVisible, setIsVisible] = React.useState(false);
-  
-  React.useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-    
-    const element = document.getElementById('benefit-metrics');
-    if (element) observer.observe(element);
-    
-    return () => {
-      if (element) observer.unobserve(element);
-    };
-  }, [isVisible]);
-
   return (
-    <div 
+    <div
       id="benefit-metrics"
-      className={`w-full h-full flex items-center justify-center p-3 md:p-6 transition-all duration-1000 ease-out ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-      }`}
+      className="w-full h-full flex items-center justify-center p-3 md:p-6"
     >
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 w-full">
         {[12, 25, 18, 40].map((value, index) => (
-          <StyledCard key={index} $isVisible={isVisible}>
+          <StyledCard key={index}>
             <div className="card">
               <div className="bg" />
               <div className="blob" />
@@ -56,7 +34,7 @@ const BenefitMetrics: React.FC = () => {
   );
 };
 
-const StyledCard = styled.div<{ $isVisible: boolean }>`
+const StyledCard = styled.div`
   .card {
     position: relative;
     width: 100%;
@@ -107,7 +85,7 @@ const StyledCard = styled.div<{ $isVisible: boolean }>`
     background-color: #ff0000;
     opacity: 0.5;
     filter: blur(12px);
-    animation: ${props => props.$isVisible ? 'blobOrbitAndFade 3.5s ease-in-out forwards' : 'none'};
+    animation: blobOrbitAndFade 3.5s ease-in-out forwards;
     transform: translate(-50%, -50%) translate(-70px, -70px);
   }
 
@@ -123,7 +101,7 @@ const StyledCard = styled.div<{ $isVisible: boolean }>`
     opacity: 0;
     filter: blur(10px);
     transform: translate(-50%, -50%);
-    animation: ${props => props.$isVisible ? 'miniBlobAppear 1s ease-in forwards 3s, miniBlobPulse 3s ease-in-out infinite 4s' : 'none'};
+    animation: miniBlobAppear 1s ease-in forwards 3s;
   }
 
   /* Border animation keyframes for mobile */

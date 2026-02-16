@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import Image from 'next/image'
-import { useInView } from 'react-intersection-observer'
 
 const logos = [
   { name: "Walmart", src: "/brandlogos/walmart.svg" },

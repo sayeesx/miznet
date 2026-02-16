@@ -1,11 +1,9 @@
 "use client";
 
-import { useInView, useMotionValue, useSpring } from "motion/react";
-import { ComponentPropsWithoutRef, useEffect, useRef } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-interface NumberTickerProps extends ComponentPropsWithoutRef<"span"> {
+interface NumberTickerProps extends React.ComponentPropsWithoutRef<"span"> {
   value: number;
   startValue?: number;
   direction?: "up" | "down";
@@ -16,46 +14,55 @@ interface NumberTickerProps extends ComponentPropsWithoutRef<"span"> {
 export function NumberTicker({
   value,
   startValue = 0,
-  direction = "up",
   delay = 0,
   className,
   decimalPlaces = 0,
   ...props
 }: NumberTickerProps) {
+  const [displayValue, setDisplayValue] = useState(startValue);
   const ref = useRef<HTMLSpanElement>(null);
-  const motionValue = useMotionValue(startValue);
-  const springValue = useSpring(motionValue, {
-    damping: 40,
-    stiffness: 80,
-    mass: 0.8,
-  });
-  const isInView = useInView(ref, { 
-    once: true, 
-    margin: "0px 0px -100px 0px",
-    amount: 0.3 
-  });
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (isInView) {
-      const timer = setTimeout(() => {
-        motionValue.set(value);
-      }, delay * 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [motionValue, isInView, delay, value, direction, startValue]);
+    const element = ref.current;
+    if (!element) return;
 
-  useEffect(
-    () =>
-      springValue.on("change", (latest) => {
-        if (ref.current) {
-          ref.current.textContent = Intl.NumberFormat("en-US", {
-            minimumFractionDigits: decimalPlaces,
-            maximumFractionDigits: decimalPlaces,
-          }).format(Number(latest.toFixed(decimalPlaces)));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+
+          setTimeout(() => {
+            const startTime = performance.now();
+            const duration = 2000; // 2 seconds animation
+
+            const animate = (currentTime: number) => {
+              const elapsed = currentTime - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+
+              // Easing function (easeOutExpo)
+              const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+
+              const current = startValue + (value - startValue) * ease;
+              setDisplayValue(current);
+
+              if (progress < 1) {
+                requestAnimationFrame(animate);
+              }
+            };
+
+            requestAnimationFrame(animate);
+          }, delay * 1000);
+
+          observer.disconnect();
         }
-      }),
-    [springValue, decimalPlaces],
-  );
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [value, startValue, delay]);
 
   return (
     <span
@@ -66,7 +73,10 @@ export function NumberTicker({
       )}
       {...props}
     >
-      {startValue}
+      {Intl.NumberFormat("en-US", {
+        minimumFractionDigits: decimalPlaces,
+        maximumFractionDigits: decimalPlaces,
+      }).format(Number(displayValue.toFixed(decimalPlaces)))}
     </span>
   );
 } 

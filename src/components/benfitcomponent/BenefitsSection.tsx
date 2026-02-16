@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import AnimatedButton from '../AnimatedButton';
 
@@ -9,37 +9,19 @@ interface Benefit {
 
 const ArrowIcon = (
   <svg className="arrow-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M5 10H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M12 7L15 10L12 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M5 10H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M12 7L15 10L12 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
 const BenefitsSection: React.FC = () => {
-  const [isVisible, setIsVisible] = React.useState(false);
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-    
-    const element = document.getElementById('benefits-section');
-    if (element) observer.observe(element);
-    
-    return () => {
-      if (element) observer.unobserve(element);
-    };
-  }, []);
-
   const benefits: Benefit[] = [
     {
       title: "Reduce operational cost",
       description: "Cut expenses with automated inventory management"
     },
     {
-      title: "Prevent stockouts and overstock", 
+      title: "Prevent stockouts and overstock",
       description: "AI-driven demand forecasting prevents waste"
     },
     {
@@ -57,7 +39,7 @@ const BenefitsSection: React.FC = () => {
   ];
 
   return (
-    <StyledWrapper id="benefits-section" className={`transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+    <StyledWrapper id="benefits-section">
       <div className="card">
         <div
           className="blob"

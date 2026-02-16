@@ -1,30 +1,10 @@
 import React from 'react';
 
 const BenfitChart = () => {
-  const [isVisible, setIsVisible] = React.useState(false);
-  
-  React.useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-    
-    const element = document.getElementById('benefit-chart');
-    if (element) observer.observe(element);
-    
-    return () => {
-      if (element) observer.unobserve(element);
-    };
-  }, []);
-
   return (
     <div
       id="benefit-chart"
-      className={`relative flex w-[95%] md:w-full h-full md:min-h-[390px] flex-col rounded-2xl bg-white overflow-hidden justify-center items-center p-3 md:p-4 transition-all duration-1000 ease-out mt-6 md:mt-5 mx-auto md:-ml-4 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-      }`}
+      className="relative flex w-[95%] md:w-full h-full md:min-h-[390px] flex-col rounded-2xl bg-white overflow-hidden justify-center items-center p-3 md:p-4 mt-6 md:mt-5 mx-auto md:-ml-4"
       style={{ boxShadow: '0 6px 24px 0 rgba(0,0,0,0.08)' }}
     >
       {/* Red blurred blob background */}

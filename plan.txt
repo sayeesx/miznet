@@ -1,0 +1,9 @@
+💡 Your Startup: “AI Supply Chain Brain”
+
+An Agentic AI system that:
+
+Watches the entire supply chain → learns patterns → makes planning decisions automatically → improves over time.
+
+Not dashboards.
+Not reports.
+Autonomous decision engine.

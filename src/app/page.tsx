@@ -27,14 +27,18 @@ export default function Home() {
         <section id="hero-section" className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto pt-16 pb-16 px-6 gap-12 w-full mt-8 md:mt-0">
           {/* Left */}
           <div className="flex-1 flex flex-col items-start justify-center">
-            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight max-w-2xl">
-              Track Every Product from Warehouse to Checkout —{" "}
-              <span className="text-[#fc0404]">Automatically</span>
+            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+              An Agentic AI system that:
             </h1>
-            <p className="text-xl text-gray-600 max-w-xl mb-8">
-              <span className="font-bold text-[#fc0404]">Miznet AI</span> uses blockchain and machine learning to
-              eliminate stockouts, manage expiry, and restock shelves without human intervention.
+            <p className="text-xl text-gray-600 font-normal mb-8 md:whitespace-nowrap">
+              Monitors the supply chain → learns patterns → <br className="md:hidden" />
+              makes autonomous decisions → continuously improves.
             </p>
+            <div className="text-xl text-gray-600 w-full mb-8">
+              <p className="font-bold">
+                <span className="text-[#fc0404]">Not</span> <span className="text-black">dashboards.</span> <span className="text-[#fc0404]">Not</span> <span className="text-black">reports.</span> <span className="text-[#fc0404]">Autonomous decision engine.</span>
+              </p>
+            </div>
             <ContactButton className="mt-6 md:mt-2 self-start ml-0" text="Book a Demo" />
           </div>
           {/* Right */}
@@ -60,7 +64,7 @@ export default function Home() {
         {/* Features Section */}
         <div id="features-section">
           <FeaturesSection />
-          
+
           {/* See How Miznet Works Button */}
           <div className="flex justify-center mt-8 mb-12">
             <SparkleButton href="/miznet" className="text-sm px-4 py-2" />

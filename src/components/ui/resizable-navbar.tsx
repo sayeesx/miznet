@@ -1,16 +1,9 @@
 "use client";
-import { cn } from "../../../lib/utils";
+import { cn } from "@/lib/utils";
 import { IconMenu2, IconX } from "@tabler/icons-react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useMotionValueEvent,
-} from "motion/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 // Custom hook for mobile detection that avoids hydration issues
 const useMobileDetection = () => {
@@ -67,77 +60,49 @@ interface MobileNavMenuProps {
 }
 
 export const Navbar = ({ children, className }: NavbarProps) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollY } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
   const [visible, setVisible] = useState<boolean>(false);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 100) {
-      setVisible(true);
-    } else {
-      setVisible(false);
-    }
-  });
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setVisible(window.scrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <motion.div
-      ref={ref}
-      // IMPORTANT: Change this to class of `fixed` if you want the navbar to be fixed
-      className={cn("fixed top-0 left-0 z-40 w-full", className)}
+    <div
+      className={cn("fixed top-0 left-0 z-40 w-full transition-all duration-300", className)}
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
           ? React.cloneElement(
-              child as React.ReactElement<{ visible?: boolean }>,
-              { visible },
-            )
+            child as React.ReactElement<{ visible?: boolean }>,
+            { visible },
+          )
           : child,
       )}
-    </motion.div>
+    </div>
   );
 };
 
 export const NavBody = ({ children, className, visible }: NavBodyProps) => {
-  const { isMobile, hasMounted } = useMobileDetection();
-  const [show, setShow] = useState(true); // Always start visible
-  const lastScrollY = useRef(0);
+  const { isMobile } = useMobileDetection();
 
-  // Auto-hide navbar on scroll for mobile - but only after initial load
-  useEffect(() => {
-    if (!isMobile || !hasMounted) return;
-    
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY.current && currentScrollY > 40) {
-        setShow(false); // scrolling down
-      } else {
-        setShow(true); // scrolling up
-      }
-      lastScrollY.current = currentScrollY;
-    };
-    
-    // Small delay to ensure navbar is visible on first load
-    const timer = setTimeout(() => {
-      window.addEventListener('scroll', handleScroll);
-    }, 200);
-    
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isMobile, hasMounted]);
-
-  // Always render mobile navbar if mobile is detected, even before full mount
+  // Mobile rendering
   if (isMobile) {
     return (
       <div
         className={cn(
-          "fixed top-0 left-0 right-0 transition-transform duration-500 ease-in-out",
-          show ? "translate-y-0" : "-translate-y-full",
-          "z-[60] mx-auto w-full max-w-full flex flex-row items-center justify-between self-start bg-white px-1 py-1 gap-1 overflow-hidden whitespace-nowrap border-b border-gray-200 shadow-sm flex-nowrap min-w-0",
+          "fixed top-0 left-0 right-0 z-[60] mx-auto w-full flex flex-row items-center justify-between bg-white px-2 py-2 border-b border-gray-100 shadow-sm",
           className,
         )}
       >
@@ -146,35 +111,19 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
     );
   }
 
-  // Desktop: use motion.div with animation
+  // Desktop rendering
   return (
-    <motion.div
-      animate={{
-        backdropFilter: visible ? "blur(4px)" : "none",
-        boxShadow: visible
-          ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
-          : "none",
-        width: visible ? "40%" : "100%",
-        y: visible ? 20 : 0,
-        borderRadius: visible ? 9999 : 0,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 180, // increased for snappier, smoother feel
-        damping: 22,    // reduced for less resistance
-        mass: 0.8,
-        duration: 0.9,  // slightly longer for fluidity
-      }}
-      style={{}}
+    <div
       className={cn(
-        "relative z-[60] mx-auto w-full max-w-full flex flex-row items-center justify-between self-start bg-white px-4 py-2 gap-4 overflow-x-auto whitespace-nowrap border-b border-gray-200 shadow-sm flex-nowrap min-w-0",
-        visible ? "rounded-full" : "rounded-none",
-        visible && "bg-white/80",
+        "relative z-[60] mx-auto flex w-full flex-row items-center justify-between self-start px-6 py-3 transition-all duration-300 ease-in-out border-b border-transparent",
+        visible
+          ? "bg-white/90 shadow-md backdrop-blur-md rounded-full mt-4 border-gray-200 max-w-4xl"
+          : "bg-transparent max-w-7xl",
         className,
       )}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 
@@ -185,14 +134,14 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
   const handleItemClick = (itemLink: string) => {
     setLoadingItem(itemLink);
     if (onItemClick) onItemClick();
-    
+
     // Clear loading after navigation
     setTimeout(() => setLoadingItem(null), 1000);
   };
 
   return (
     <div
-      onMouseLeave={() => {}}
+      onMouseLeave={() => { }}
       className={cn(
         "flex flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 min-w-0 overflow-hidden flex-nowrap",
         className,
@@ -201,7 +150,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
       {items.map((item, idx) => {
         const isActive = pathname === item.link;
         const isLoading = loadingItem === item.link;
-        
+
         return (
           <div key={`link-${idx}`} className="relative">
             <Link
@@ -215,13 +164,11 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
               <span className="relative z-20">{item.name}</span>
             </Link>
             {isLoading && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
+              <div
                 className="absolute -right-1 top-1/2 transform -translate-y-1/2 w-3 h-3"
               >
                 <div className="w-3 h-3 border border-[#fc0404] border-t-transparent rounded-full animate-spin" />
-              </motion.div>
+              </div>
             )}
           </div>
         );
@@ -230,34 +177,20 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
   );
 };
 
+
 export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
   return (
-    <motion.div
-      animate={{
-        backdropFilter: visible ? "blur(10px)" : "none",
-        boxShadow: visible
-          ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
-          : "none",
-        width: visible ? "90%" : "100%",
-        paddingRight: visible ? "12px" : "0px",
-        paddingLeft: visible ? "12px" : "0px",
-        borderRadius: visible ? "4px" : "2rem",
-        y: visible ? 20 : 0,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 80,
-        damping: 20,
-        mass: 0.8,
-      }}
+    <div
       className={cn(
-        "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden",
-        visible && "bg-white/80 dark:bg-neutral-950/80",
+        "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between px-0 py-2 lg:hidden transition-all duration-300 ease-spring",
+        visible
+          ? "bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md shadow-lg rounded-md translate-y-5 px-3 w-[90%]"
+          : "bg-transparent translate-y-0 px-0 w-full rounded-[2rem]",
         className,
       )}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 
@@ -281,36 +214,31 @@ export const MobileNavMenu = ({
   className,
   isOpen,
 }: Omit<MobileNavMenuProps, 'onClose' | 'children'>) => {
-  // If children are nav items, map and wrap with Link
   const navItems = [
     { name: "Features", link: "/miznet" },
     { name: "Pricing", link: "/pricing" },
     { name: "Contact", link: "/contact" },
   ];
+
+  if (!isOpen) return null;
+
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className={cn(
-            "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-white px-4 py-8 shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] dark:bg-neutral-950",
-            className,
-          )}
-        >
-          {navItems.map((item) => (
-            <Link
-              key={item.link}
-              href={item.link}
-              className="block w-full py-2 px-2 text-base font-medium text-black hover:bg-gray-100 rounded"
-            >
-              {item.name}
-            </Link>
-          ))}
-        </motion.div>
+    <div
+      className={cn(
+        "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-white px-4 py-8 shadow-xl dark:bg-neutral-950 animate-in fade-in slide-in-from-top-5 duration-200",
+        className,
       )}
-    </AnimatePresence>
+    >
+      {navItems.map((item) => (
+        <Link
+          key={item.link}
+          href={item.link}
+          className="block w-full py-2 px-2 text-base font-medium text-black hover:bg-gray-100 rounded"
+        >
+          {item.name}
+        </Link>
+      ))}
+    </div>
   );
 };
 
@@ -361,9 +289,9 @@ export const NavbarButton = ({
   className?: string;
   variant?: "primary" | "secondary" | "dark" | "gradient";
 } & (
-  | React.ComponentPropsWithoutRef<"a">
-  | React.ComponentPropsWithoutRef<"button">
-)) => {
+    | React.ComponentPropsWithoutRef<"a">
+    | React.ComponentPropsWithoutRef<"button">
+  )) => {
   const baseStyles =
     "px-4 py-2 rounded-md bg-white button bg-white text-black text-sm font-bold relative cursor-pointer transition duration-150 inline-block text-center focus:outline-none focus:ring-2 focus:ring-[#fc0404] focus:ring-offset-2 border border-transparent focus:border-[#fc0404] active:border-[#fc0404]";
 
